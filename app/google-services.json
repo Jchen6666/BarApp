@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "122580116836",
+    "firebase_url": "https://barapp-de43a.firebaseio.com",
+    "project_id": "barapp-de43a",
+    "storage_bucket": "barapp-de43a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122580116836:android:5cf882fc3b0d9bd8",
+        "android_client_info": {
+          "package_name": "com.example.jerrychen.barapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "122580116836-q3bv7tde2mar2l5r4kreoadihnneeicc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jerrychen.barapp",
+            "certificate_hash": "7641f78b77d69ea4a35933b28079d7b7bc5463a2"
+          }
+        },
+        {
+          "client_id": "122580116836-9ulqv14bek98e2f2rap5jp8edkrov5s0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMySfwmkfsd6c-jlCGZZgimcp4tNQ76q8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "122580116836-9ulqv14bek98e2f2rap5jp8edkrov5s0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
