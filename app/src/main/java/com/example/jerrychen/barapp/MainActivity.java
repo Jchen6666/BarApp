@@ -27,7 +27,16 @@ public class MainActivity extends AppCompatActivity {
     public void buttonClickRegister(View view) {
         String email=editTextEmail.getText().toString().trim();
         String password=editTextPassword.getText().toString().trim();
-        firebaseAuth.createUserWithEmailAndPassword("Jerry@gmail.com","12345");
+        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(MainActivity.this,"Registered Successfully",Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(MainActivity.this,"Registered failed",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
     }
 
