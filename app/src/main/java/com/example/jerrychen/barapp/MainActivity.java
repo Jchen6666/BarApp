@@ -10,13 +10,20 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
    private EditText editTextEmail,editTextPassword;
     private FirebaseAuth firebaseAuth;
     private String email,password;
+    private FirebaseDatabase database;
+    private DatabaseReference dbRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         editTextEmail=(EditText)findViewById(R.id.editTextEmail);
         editTextPassword=(EditText)findViewById(R.id.editTextPassword);
         firebaseAuth=FirebaseAuth.getInstance();
-
+        database=FirebaseDatabase.getInstance();
+        dbRef=database.getReferenceFromUrl("https://barapp-de43a.firebaseio.com/User");
     }
 
     public void buttonClickRegister(View view) {
@@ -36,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(MainActivity.this,"Registered Successfully",Toast.LENGTH_LONG).show();
+                    FirebaseUser user=firebaseAuth .getCurrentUser();
+                    Toast.makeText(MainActivity.this,user.getUid(),Toast.LENGTH_LONG).show();
+                    registerInDb(user.getUid());
+
                 }else {
                     Toast.makeText(MainActivity.this,"Registered failed",Toast.LENGTH_LONG).show();
                 }
@@ -59,7 +71,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-        Intent intent=new Intent();
 
+    }
+    public void registerInDb(String uid){
+        dbRef.push().setValue(uid);
     }
 }

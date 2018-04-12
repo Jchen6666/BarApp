@@ -25,9 +25,8 @@
         android:layout_height="41dp"
         android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="72dp"
-        android:hint="Enter your password"
-       />
+        android:layout_marginBottom="57dp"
+        android:hint="Enter your password" />
 
     <Button
         android:id="@+id/button2"
