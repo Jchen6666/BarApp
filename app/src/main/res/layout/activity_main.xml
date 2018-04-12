@@ -45,6 +45,17 @@
         android:layout_below="@+id/editTextPassword"
         android:layout_marginEnd="33dp"
         android:text="sign in"
-        android:onClick="buttonClickLogin"/>
+        android:onClick="buttonClickLogin"
+        android:id="@+id/button3" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button3"
+        android:layout_marginTop="47dp"
+        android:layout_toEndOf="@+id/button2"
+        android:text="DBTest"
+        android:onClick="buttonClickDbTest"
+        tools:ignore="OnClick" />
 
 </RelativeLayout>

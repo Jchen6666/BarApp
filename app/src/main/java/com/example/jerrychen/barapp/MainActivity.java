@@ -74,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void registerInDb(String uid){
-        dbRef.push().setValue(uid);
+        DatabaseReference childRef=dbRef.child(uid);
+        childRef.child("name").setValue("Jerry");
+        childRef.child("age").setValue(22);
+    }
+
+    public void buttonClickDbTest(View view) {
+        registerInDb("qwjdoiqwjd");
     }
 }
