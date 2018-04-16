@@ -58,20 +58,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void buttonClickLogin(View view) {
-        email=editTextEmail.getText().toString().trim();
-        password=editTextPassword.getText().toString().trim();
-        firebaseAuth.signInWithEmailAndPassword(email,password)
-            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
-                        Toast.makeText(MainActivity.this,"Login Successfully",Toast.LENGTH_LONG).show();
-                    }else {
-                        Toast.makeText(MainActivity.this,"Login failed",Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+        email=editTextEmail.getText().toString();
+        password=editTextPassword.getText().toString();
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(MainActivity.this, "email or password cannot be empty", Toast.LENGTH_LONG).show();
+        }else {
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(MainActivity.this, "Login Successfully", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(MainActivity.this, "Wrong email or password", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
 
+        }
     }
     public void registerInDb(String uid){
         DatabaseReference childRef=dbRef.child(uid);

@@ -112,13 +112,15 @@
             android:text="Login"
             android:textColor="#ffff"
             android:layout_marginBottom="30dp"
+            android:onClick="buttonClickLogin"
             android:id="@+id/login"
-            />
+            tools:ignore="OnClick" />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/create_button"
             android:textColor="#000"
+
             android:text="Create"
             android:id="@+id/create"/>
     </LinearLayout>
