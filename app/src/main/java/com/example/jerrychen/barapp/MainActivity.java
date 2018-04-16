@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Toast.makeText(MainActivity.this,"Registered Successfully",Toast.LENGTH_LONG).show();
                     FirebaseUser user=firebaseAuth .getCurrentUser();
-                    Toast.makeText(MainActivity.this,user.getUid(),Toast.LENGTH_LONG).show();
+                   // Toast.makeText(MainActivity.this,user.getUid(),Toast.LENGTH_LONG).show();
                     registerInDb(user.getUid());
 
                 }else {
