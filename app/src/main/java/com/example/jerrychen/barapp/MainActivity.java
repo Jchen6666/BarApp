@@ -53,9 +53,11 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Toast.makeText(MainActivity.this,"Registered Successfully",Toast.LENGTH_LONG).show();
                     FirebaseUser user=firebaseAuth .getCurrentUser();
+                    User customer=new Customer("jerry",email);
+
                   //  Toast.makeText(MainActivity.this,user.getUid(),Toast.LENGTH_LONG).show();
                     if (user.getUid().isEmpty()==false) {
-                        registerInDb(user.getUid());
+                        registerInDb(user.getUid(),customer);
                     }else {
                         Toast.makeText(MainActivity.this,"cannot get data",Toast.LENGTH_LONG).show();
                     }
@@ -115,14 +117,15 @@ public class MainActivity extends AppCompatActivity {
            }
        });
     }
-    public void registerInDb(String uid){
-        DatabaseReference childRef=dbRef.child(uid);
-        childRef.child("name").setValue("Jerry");
-        childRef.child("age").setValue(22);
+    public void registerInDb(String uid ,User user){
+//        DatabaseReference childRef=dbRef.child(uid);
+//        childRef.child("name").setValue("Jerry");
+//        childRef.child("age").setValue(22);
+        dbRef.child(uid).setValue(user);
     }
 
     public void buttonClickDbTest(View view) {
-        registerInDb("qwjdoiqwjd");
+     //   registerInDb("qwjdoiqwjd");
     }
 
     public void buttonClickNavigation(View view) {

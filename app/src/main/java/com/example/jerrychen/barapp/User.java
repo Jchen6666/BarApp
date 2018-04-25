@@ -5,16 +5,6 @@ package com.example.jerrychen.barapp;
  */
 
 public abstract class User {
-    private String uid;
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
     public String getName() {
         return name;
     }
@@ -34,8 +24,8 @@ public abstract class User {
     private String name;
     private String email;
 
-    public User(String uid,String name, String email){
-        this.uid=uid;
+    public User(String name, String email){
+
         this.name=name;
         this.email=email;
     }

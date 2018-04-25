@@ -4,7 +4,7 @@
     <string name="password_hint">Enter your password</string>
     <string name="button_register">register</string>
     <string name="button_logIn">login</string>
-
+    <string name="title_activity_product_detail">ProductDetailActivity</string>
 
 
 </resources>
