@@ -16,12 +16,18 @@ public class Product {
     private ProductCategory category;
     private Boolean availability;
 
-    public Product(String pictureUrl, String name, int price) {
+    public Product() {
+    }
+
+    public Product(String pictureUrl, String name, int price, double volume, String description, ProductCategory category, Boolean availability) {
         this.pictureUrl = pictureUrl;
         this.name = name;
         this.price = price;
+        this.volume = volume;
+        this.description = description;
+        this.category = category;
+        this.availability = availability;
     }
-
     public String getPictureUrl() {
         return pictureUrl;
     }

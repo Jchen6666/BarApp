@@ -9,6 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +35,8 @@ public class BeerFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private ArrayList<Product> PRODUCTS;
+    private ListView listViewProducts;
     private OnFragmentInteractionListener mListener;
 
     public BeerFragment() {
@@ -67,10 +76,31 @@ public class BeerFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_beer, container, false);
+        //Retrieving data from database
+        PRODUCTS=new ArrayList<>();
+        FirebaseDatabase database=FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference=database.getReference();
+        databaseReference.child("Products").child("Beer").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                for(DataSnapshot child:children){
+                    PRODUCTS.add(child.getValue(Product.class));
+                }
+                if(listViewProducts!=null) {
+                    updateListView(listViewProducts, PRODUCTS);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         //Setting listview
-        ListView listViewProducts=(ListView)v.findViewById(R.id.listViewProducts);
-        System.out.println(MainActivity.getPRODUCTS().size());
-        ProductAdapter productAdapter=new ProductAdapter(getContext(),MainActivity.getPRODUCTS());
+        listViewProducts=(ListView)v.findViewById(R.id.listViewProducts);
+        ProductAdapter productAdapter=new ProductAdapter(getContext(),PRODUCTS);
         listViewProducts.setAdapter(productAdapter);
         return v;
     }
@@ -112,5 +142,9 @@ public class BeerFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    public void updateListView(ListView listView,ArrayList<Product> PRODUCTS){
+        ProductAdapter productAdapter=new ProductAdapter(getContext(),PRODUCTS);
+        listView.setAdapter(productAdapter);
     }
 }
