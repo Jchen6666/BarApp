@@ -5,16 +5,16 @@ package com.example.jerrychen.barapp;
  */
 
 public class Customer extends User {
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
-    private String age,gender;
-
+    private String gender;
+    private int age;
     public String getGender() {
         return gender;
     }
@@ -24,15 +24,15 @@ public class Customer extends User {
 
     public Customer( String name, String email) {
         super(name, email);
-        age="unknown";
+
         gender="unknown";
     }
-    public Customer( String name, String email, String age){
+    public Customer( String name, String email, int age){
         super(name, email);
         this.age=age;
         gender="unknown";
     }
-    public Customer( String name, String email, String age,String gender){
+    public Customer( String name, String email, int age,String gender){
         super(name, email);
         this.age=age;
         this.gender=gender;

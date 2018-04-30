@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
     public void buttonClickRegister(View view) {
          email=editTextEmail.getText().toString().trim();
          password=editTextPassword.getText().toString().trim();
-        firebaseAuth.createUserWithEmailAndPassword(email,password)
+         firebaseAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(MainActivity.this,"Registered Successfully",Toast.LENGTH_LONG).show();
-                    FirebaseUser user=firebaseAuth .getCurrentUser();
+                    FirebaseUser user=firebaseAuth.getCurrentUser();
                     User customer=new Customer("jerry",email);
 
                   //  Toast.makeText(MainActivity.this,user.getUid(),Toast.LENGTH_LONG).show();

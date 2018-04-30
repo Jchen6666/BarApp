@@ -77,7 +77,7 @@
         android:layout_below="@+id/scrollView"
         android:background="@drawable/rounded_white_rect"
         android:drawablePadding="5dp"
-
+        android:layout_marginEnd="50dp"
         android:hint="Email"
         android:paddingStart="10dp" />
     <AutoCompleteTextView
@@ -118,8 +118,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/create_button"
             android:textColor="#000"
-
+            android:onClick="buttonClickCreate"
             android:text="Create"
-            android:id="@+id/create"/>
+            android:id="@+id/create"
+            tools:ignore="OnClick" />
     </LinearLayout>
 </RelativeLayout>
