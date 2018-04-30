@@ -40,7 +40,11 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         // Populate the data into the template view using the data object
         tvName.setText(product.getName());
         tvPrice.setText(product.getPrice()+"DKK");
-        Picasso.get().load(product.getPictureUrl()).into(ivPicture);
+        try {
+            Picasso.get().load(product.getPictureUrl()).into(ivPicture);
+        }catch(IllegalArgumentException e){
+            e.printStackTrace();
+        }
         // Return the completed view to render on screen
         return convertView;
     }

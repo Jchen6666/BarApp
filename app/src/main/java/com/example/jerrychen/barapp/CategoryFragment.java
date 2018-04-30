@@ -7,17 +7,26 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DrinksFragment.OnFragmentInteractionListener} interface
+ * {@link CategoryFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DrinksFragment#newInstance} factory method to
+ * Use the {@link CategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DrinksFragment extends Fragment {
+public class CategoryFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -26,10 +35,11 @@ public class DrinksFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private ArrayList<Product> PRODUCTS;
+    private ListView listViewProducts;
     private OnFragmentInteractionListener mListener;
 
-    public DrinksFragment() {
+    public CategoryFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +49,11 @@ public class DrinksFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment DrinksFragment.
+     * @return A new instance of fragment BeerFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DrinksFragment newInstance(String param1, String param2) {
-        DrinksFragment fragment = new DrinksFragment();
+    public static CategoryFragment newInstance(String param1, String param2) {
+        CategoryFragment fragment = new CategoryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,8 +73,37 @@ public class DrinksFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //Get category of fragment
+        this.getArguments();
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_drinks, container, false);
+        View v=inflater.inflate(R.layout.fragment_category, container, false);
+        //Retrieving data from database
+        PRODUCTS=new ArrayList<>();
+        FirebaseDatabase database=FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference=database.getReference();
+        databaseReference.child("Products").child(this.getArguments().getString("category")).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                for(DataSnapshot child:children){
+                    PRODUCTS.add(child.getValue(Product.class));
+                }
+                if(listViewProducts!=null) {
+                    updateListView(listViewProducts, PRODUCTS);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //Setting listview
+        listViewProducts=(ListView)v.findViewById(R.id.listViewProducts);
+        ProductAdapter productAdapter=new ProductAdapter(getContext(),PRODUCTS);
+        listViewProducts.setAdapter(productAdapter);
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,5 +143,9 @@ public class DrinksFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    public void updateListView(ListView listView,ArrayList<Product> PRODUCTS){
+        ProductAdapter productAdapter=new ProductAdapter(getContext(),PRODUCTS);
+        listView.setAdapter(productAdapter);
     }
 }

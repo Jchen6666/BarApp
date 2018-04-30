@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements BeerFragment.OnFragmentInteractionListener,FavouriteFragment.OnFragmentInteractionListener,WineFragment.OnFragmentInteractionListener,SoftDrinksFragment.OnFragmentInteractionListener,SnacksFragment.OnFragmentInteractionListener,ShotsFragment.OnFragmentInteractionListener,DrinksFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements CategoryFragment.OnFragmentInteractionListener {
 
     private DrawerLayout mDrawerLayout;
     @Override

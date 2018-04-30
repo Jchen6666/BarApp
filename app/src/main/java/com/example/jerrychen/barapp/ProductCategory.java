@@ -5,5 +5,5 @@ package com.example.jerrychen.barapp;
  */
 
 public enum ProductCategory {
-    Beer,Wine,Shot,Drink,Snack,SoftDrink
+    Beer,Wine,Shots,Drinks,Snacks,SoftDrinks
 }

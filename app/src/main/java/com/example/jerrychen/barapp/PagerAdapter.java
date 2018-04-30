@@ -1,5 +1,6 @@
 package com.example.jerrychen.barapp;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -17,32 +18,39 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     }
     @Override
     public Fragment getItem(int position) {
+        Bundle bundle = new Bundle();
+        String category;
+
         switch(position){
             case 0:
-                FavouriteFragment favouriteFragment=new FavouriteFragment();
-                return favouriteFragment;
+                category="Favourite";
+                break;
             case 1:
-                BeerFragment beerFragment=new BeerFragment();
-                return beerFragment;
+                category="Beer";
+                break;
             case 2:
-                WineFragment wineFragment=new WineFragment();
-                return wineFragment;
+                category="Wine";
+                break;
             case 3:
-                ShotsFragment shotsFragment=new ShotsFragment();
-                return shotsFragment;
+                category="Shots";
+                break;
             case 4:
-                DrinksFragment drinksFragment=new DrinksFragment();
-                return drinksFragment;
+                category="Drinks";
+                break;
             case 5:
-                SnacksFragment snacksFragment=new SnacksFragment();
-                return snacksFragment;
+                category="Snacks";
+                break;
             case 6:
-                SoftDrinksFragment softDrinksFragment=new SoftDrinksFragment();
-                return softDrinksFragment;
+                category="Soft Drinks";
+                break;
             default:
-                return null;
+                category="Favourite";
+                break;
         }
-
+        bundle.putString("category",category);
+        CategoryFragment categoryFragment=new CategoryFragment();
+        categoryFragment.setArguments(bundle);
+        return categoryFragment;
     }
 
     @Override
