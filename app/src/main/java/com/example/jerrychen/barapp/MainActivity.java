@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements CategoryFragment.
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
 

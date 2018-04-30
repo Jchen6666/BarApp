@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -43,8 +44,13 @@ public class AddProductActivity extends AppCompatActivity {
                 String URL=etURL.getText().toString();
                 boolean availability=cAvailability.isChecked();
                 ProductCategory category=(ProductCategory)sCategory.getItemAtPosition(sCategory.getSelectedItemPosition());
-                Product product=new Product(URL,name,price,volume,description,category,availability);
-                mDatabaseReference.child("Products").child(product.getCategory().toString()).child(product.getName()).setValue(product);
+                if(name!=null&&price!=null&&volume!=null){
+                    Product product=new Product(URL,name,price,volume,description,category,availability);
+                    mDatabaseReference.child("Products").child(product.getCategory().toString()).child(product.getName()).setValue(product);
+                    Toast.makeText(AddProductActivity.this,"Product successfully added to the menu",Toast.LENGTH_LONG);
+                }   else{
+
+                }
                 etName.setText("");
                 etPrice.setText("");
                 etVolume.setText("");
