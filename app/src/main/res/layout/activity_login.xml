@@ -68,20 +68,18 @@
         </LinearLayout>
 
     </ScrollView>
+
     <AutoCompleteTextView
+        android:id="@+id/userEmail"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/rounded_white_rect"
-        android:hint="Email"
-        android:drawablePadding="5dp"
-        android:paddingStart="10dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:id="@+id/userEmail"
-        android:layout_marginBottom="30dp"
+        android:layout_alignStart="@+id/userPassword"
         android:layout_below="@+id/scrollView"
+        android:background="@drawable/rounded_white_rect"
+        android:drawablePadding="5dp"
 
-        />
+        android:hint="Email"
+        android:paddingStart="10dp" />
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="40dp"

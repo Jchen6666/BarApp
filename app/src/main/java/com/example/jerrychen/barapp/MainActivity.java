@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonClickDbTest(View view) {
-     //   registerInDb("qwjdoiqwjd");
     }
 
     public void buttonClickNavigation(View view) {

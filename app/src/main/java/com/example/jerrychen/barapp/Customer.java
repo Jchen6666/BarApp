@@ -14,8 +14,17 @@ public class Customer extends User {
     }
 
     private String age,gender;
+
+    public String getGender() {
+        return gender;
+    }
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public Customer( String name, String email) {
         super(name, email);
+        age="unknown";
         gender="unknown";
     }
     public Customer( String name, String email, String age){
