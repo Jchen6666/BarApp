@@ -1,6 +1,5 @@
 package com.example.jerrychen.barapp;
 
-import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +14,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class AddProductActivity extends AppCompatActivity {
+public class EditProductActivity extends AppCompatActivity {
     private EditText etName,etPrice,etVolume,etDescription,etURL;
     private Spinner sCategory;
     private CheckBox cAvailability;
@@ -41,6 +40,24 @@ public class AddProductActivity extends AppCompatActivity {
         sCategory.setAdapter(new ArrayAdapter<ProductCategory>(this,android.R.layout.simple_list_item_1,ProductCategory.values()));
         cAvailability=(CheckBox)findViewById(R.id.checkBoxAvailable);
         bAdd=(Button)findViewById(R.id.buttonAdd);
+        bAdd.setText("Save");
+        if(getIntent().getSerializableExtra("Product")!=null) {
+            Product product = (Product) getIntent().getSerializableExtra("Product");
+            etName.setText(product.getName());
+            etPrice.setText(String.valueOf(product.getPrice()));
+            etVolume.setText(String.valueOf(product.getVolume()));
+            etDescription.setText((product.getDescription()));
+            etURL.setText(product.getPictureUrl());
+            cAvailability.setChecked(product.getAvailability());
+            int index=0;
+            for(int i=0;i<ProductCategory.values().length;i++){
+                if(product.getCategory().equals(ProductCategory.values()[i])){
+                    index=i;
+                    break;
+                }
+            }
+            sCategory.setSelection(index);
+        }
         mDatabaseReference= FirebaseDatabase.getInstance().getReference();
 
         bAdd.setOnClickListener(new View.OnClickListener() {
@@ -57,15 +74,9 @@ public class AddProductActivity extends AppCompatActivity {
                     ProductCategory category=(ProductCategory)sCategory.getItemAtPosition(sCategory.getSelectedItemPosition());
                     Product product=new Product(URL,name,price,volume,description,category,availability);
                     mDatabaseReference.child("Products").child(product.getCategory().toString()).child(product.getName()).setValue(product);
-                    Toast.makeText(AddProductActivity.this,"Product successfully added to the menu",Toast.LENGTH_LONG).show();
-                    etName.setText("");
-                    etPrice.setText("");
-                    etVolume.setText("");
-                    etDescription.setText("");
-                    etURL.setText("");
-                    cAvailability.setChecked(false);
+                    Toast.makeText(EditProductActivity.this,"Product successfully edited and saved",Toast.LENGTH_LONG).show();
                 }   catch(Exception e){
-                    Toast.makeText(AddProductActivity.this,"Product not added, missing parameters",Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditProductActivity.this,"Product not saved, missing parameters",Toast.LENGTH_LONG).show();
                 }
             }
         });

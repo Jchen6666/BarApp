@@ -85,6 +85,7 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                PRODUCTS=new ArrayList<>();
                 for(DataSnapshot child:children){
                     PRODUCTS.add(child.getValue(Product.class));
                 }
@@ -101,7 +102,7 @@ public class CategoryFragment extends Fragment {
 
         //Setting listview
         listViewProducts=(ListView)v.findViewById(R.id.listViewProducts);
-        ProductAdapter productAdapter=new ProductAdapter(getContext(),PRODUCTS);
+        ProductStaffAdapter productAdapter=new ProductStaffAdapter(getContext(),PRODUCTS);
         listViewProducts.setAdapter(productAdapter);
         return v;
     }
@@ -145,7 +146,7 @@ public class CategoryFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
     public void updateListView(ListView listView,ArrayList<Product> PRODUCTS){
-        ProductAdapter productAdapter=new ProductAdapter(getContext(),PRODUCTS);
+        ProductStaffAdapter productAdapter=new ProductStaffAdapter(getContext(),PRODUCTS);
         listView.setAdapter(productAdapter);
     }
 }

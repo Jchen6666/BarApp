@@ -23,28 +23,25 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch(position){
             case 0:
-                category="Favourite";
-                break;
-            case 1:
                 category="Beer";
                 break;
-            case 2:
+            case 1:
                 category="Wine";
                 break;
-            case 3:
+            case 2:
                 category="Shots";
                 break;
-            case 4:
+            case 3:
                 category="Drinks";
                 break;
-            case 5:
+            case 4:
                 category="Snacks";
                 break;
-            case 6:
+            case 5:
                 category="Soft Drinks";
                 break;
             default:
-                category="Favourite";
+                category="Beer";
                 break;
         }
         bundle.putString("category",category);

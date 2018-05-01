@@ -2,11 +2,13 @@ package com.example.jerrychen.barapp;
 
 import android.media.Image;
 
+import java.io.Serializable;
+
 /**
  * Created by Kangur on 09.04.2018.
  */
 
-public class Product {
+public class Product implements Serializable{
 
     private String pictureUrl;
     private String name;
