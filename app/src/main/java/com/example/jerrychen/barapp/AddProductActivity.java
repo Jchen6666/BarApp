@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,7 +31,6 @@ public class AddProductActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         etName=(EditText)findViewById(R.id.editTextName);
         etPrice=(EditText)findViewById(R.id.editTextPrice);
@@ -69,5 +69,10 @@ public class AddProductActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return true;
     }
 }

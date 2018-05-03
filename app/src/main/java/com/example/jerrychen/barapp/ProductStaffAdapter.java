@@ -56,6 +56,15 @@ public class ProductStaffAdapter extends ArrayAdapter<Product> {
             }
         });
 
+        ibInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getContext(), ItemDetailsActivity.class);
+                myIntent.putExtra("Product",product);
+                getContext().startActivity(myIntent);
+            }
+        });
+
         ibDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
