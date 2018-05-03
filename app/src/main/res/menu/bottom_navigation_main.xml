@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+
+        android:id="@+id/action_menu"
+
+        android:enabled="true"
+
+        android:icon="@drawable/ic_restaurant_menu_black_24dp"
+
+        android:title="Menu"
+
+        app:showAsAction="ifRoom" />
+
+    <item
+
+        android:id="@+id/action_orders"
+
+        android:enabled="true"
+
+        android:icon="@drawable/ic_query_builder_black_24dp"
+
+        android:title="Orders"
+
+        app:showAsAction="ifRoom" />
+
+    <item
+
+        android:id="@+id/action_music"
+
+        android:enabled="true"
+
+        android:icon="@drawable/ic_settings_black_24dp"
+
+        android:title="Settings"
+
+        app:showAsAction="ifRoom" />
+
+</menu>

@@ -17,6 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AddProductActivity" />
+        <activity android:name=".EditProductActivity" />
+        <activity android:name=".ItemDetailsActivity"></activity>
+        <activity android:name=".StaffInterfaceActivity"> </activity>
     </application>
 
 </manifest>
