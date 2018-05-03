@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements CategoryFragment.
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
 
@@ -68,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements CategoryFragment.
 
         //Handling swipeable tabs
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Favourite"));
         tabLayout.addTab(tabLayout.newTab().setText("Beer"));
         tabLayout.addTab(tabLayout.newTab().setText("Wine"));
         tabLayout.addTab(tabLayout.newTab().setText("Shots"));
