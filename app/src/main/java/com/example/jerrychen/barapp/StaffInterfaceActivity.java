@@ -8,33 +8,18 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity implements CategoryFragment.OnFragmentInteractionListener {
+public class StaffInterfaceActivity extends AppCompatActivity implements CategoryFragment.OnFragmentInteractionListener {
 
     private DrawerLayout mDrawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_staff_interface);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements CategoryFragment.
                         menuItem.setChecked(true);
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
-                        Intent myIntent = new Intent(MainActivity.this, AddProductActivity.class);
-                        MainActivity.this.startActivity(myIntent);
+                        Intent myIntent = new Intent(StaffInterfaceActivity.this, AddProductActivity.class);
+                        StaffInterfaceActivity.this.startActivity(myIntent);
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
 
