@@ -13,13 +13,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".MenuActivity" />
+        <activity
+            android:name=".NavigationActivity"
+            android:label="@string/title_activity_navigation"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity" />
+
+<!--         <activity android:name=".MenuActivity" /> -->
+
+
+
         <activity android:name=".AddProductActivity" />
         <activity android:name=".EditProductActivity" />
         <activity android:name=".ItemDetailsActivity"></activity>
