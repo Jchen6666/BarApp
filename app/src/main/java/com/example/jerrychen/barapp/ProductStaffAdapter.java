@@ -75,7 +75,7 @@ public class ProductStaffAdapter extends ArrayAdapter<Product> {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference();
-                                databaseReference.child("Products").child(product.getCategory().toString()).child(product.getName()).removeValue();
+                                databaseReference.child("Products").child(product.getCategory().toString()).child(product.getID()).removeValue();
                                 Toast.makeText(getContext(), "Product deleted successfully", Toast.LENGTH_SHORT).show();
                             }})
                         .setNegativeButton(android.R.string.no, null).show();

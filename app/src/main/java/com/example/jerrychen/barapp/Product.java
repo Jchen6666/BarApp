@@ -3,6 +3,7 @@ package com.example.jerrychen.barapp;
 import android.media.Image;
 
 import java.io.Serializable;
+import java.security.SecureRandom;
 
 /**
  * Created by Kangur on 09.04.2018.
@@ -11,6 +12,7 @@ import java.io.Serializable;
 public class Product implements Serializable{
 
     private String pictureUrl;
+    private String ID;
     private String name;
     private int price;
     private double volume;
@@ -19,9 +21,15 @@ public class Product implements Serializable{
     private Boolean availability;
 
     public Product() {
+        this.ID=generateID();
+    }
+
+    public String getID() {
+        return ID;
     }
 
     public Product(String pictureUrl, String name, int price, double volume, String description, ProductCategory category, Boolean availability) {
+        this.ID=generateID();
         this.pictureUrl = pictureUrl;
         this.name = name;
         this.price = price;
@@ -30,6 +38,20 @@ public class Product implements Serializable{
         this.category = category;
         this.availability = availability;
     }
+
+    private String generateID(){
+        char[] myID=new char[10];
+        SecureRandom secureRandom=new SecureRandom();
+        for(int i=0;i<myID.length;i++){
+                myID[i] = (char)(secureRandom.nextInt(25)+65);
+        }
+        return String.valueOf(myID);
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
     public String getPictureUrl() {
         return pictureUrl;
     }

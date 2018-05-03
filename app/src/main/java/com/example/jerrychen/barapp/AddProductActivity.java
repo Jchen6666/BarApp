@@ -56,7 +56,7 @@ public class AddProductActivity extends AppCompatActivity {
                     boolean availability=cAvailability.isChecked();
                     ProductCategory category=(ProductCategory)sCategory.getItemAtPosition(sCategory.getSelectedItemPosition());
                     Product product=new Product(URL,name,price,volume,description,category,availability);
-                    mDatabaseReference.child("Products").child(product.getCategory().toString()).child(product.getName()).setValue(product);
+                    mDatabaseReference.child("Products").child(product.getCategory().toString()).child(product.getID()).setValue(product);
                     Toast.makeText(AddProductActivity.this,"Product successfully added to the menu",Toast.LENGTH_LONG).show();
                     etName.setText("");
                     etPrice.setText("");

@@ -21,6 +21,7 @@ public class EditProductActivity extends AppCompatActivity {
     private CheckBox cAvailability;
     private Button bAdd;
     private DatabaseReference mDatabaseReference;
+    private String ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +32,7 @@ public class EditProductActivity extends AppCompatActivity {
         android.support.v7.app.ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 
+        ID=null;
         etName=(EditText)findViewById(R.id.editTextName);
         etPrice=(EditText)findViewById(R.id.editTextPrice);
         etVolume=(EditText)findViewById(R.id.editTextVolume);
@@ -45,6 +47,7 @@ public class EditProductActivity extends AppCompatActivity {
         if(getIntent().getSerializableExtra("Product")!=null) {
             Product product = (Product) getIntent().getSerializableExtra("Product");
             etName.setText(product.getName());
+            ID=product.getID();
             etPrice.setText(String.valueOf(product.getPrice()));
             etVolume.setText(String.valueOf(product.getVolume()));
             etDescription.setText((product.getDescription()));
@@ -74,7 +77,9 @@ public class EditProductActivity extends AppCompatActivity {
                     boolean availability=cAvailability.isChecked();
                     ProductCategory category=(ProductCategory)sCategory.getItemAtPosition(sCategory.getSelectedItemPosition());
                     Product product=new Product(URL,name,price,volume,description,category,availability);
-                    mDatabaseReference.child("Products").child(product.getCategory().toString()).child(product.getName()).setValue(product);
+                    if(ID!=null){
+                        product.setID(ID);}
+                    mDatabaseReference.child("Products").child(product.getCategory().toString()).child(product.getID()).setValue(product);
                     Toast.makeText(EditProductActivity.this,"Product successfully edited and saved",Toast.LENGTH_LONG).show();
                 }   catch(Exception e){
                     Toast.makeText(EditProductActivity.this,"Product not saved, missing parameters",Toast.LENGTH_LONG).show();
