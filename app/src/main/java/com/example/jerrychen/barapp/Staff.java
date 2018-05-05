@@ -5,7 +5,11 @@ package com.example.jerrychen.barapp;
  */
 
 public class Staff extends User {
-    public Staff(String name, String email) {
+    private boolean isStaff;
+    public Staff(String name, String email, boolean isStaff) {
         super(name, email);
+        this.isStaff=isStaff;
     }
+
+
 }

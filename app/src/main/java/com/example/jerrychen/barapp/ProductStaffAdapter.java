@@ -28,8 +28,8 @@ import java.util.List;
  */
 
 public class ProductStaffAdapter extends ArrayAdapter<Product> {
-    public ProductStaffAdapter(Context context, ArrayList<Product> users) {
-        super(context, 0, users);
+    public ProductStaffAdapter(Context context, ArrayList<Product> products) {
+        super(context, 0, products);
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Oder {
     private Date date;
-    private Map<String,Integer> odermap;
+    private Map<String,Integer> oderMap;
 
 
 }
