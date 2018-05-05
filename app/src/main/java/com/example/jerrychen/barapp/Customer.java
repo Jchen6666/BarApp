@@ -1,10 +1,12 @@
 package com.example.jerrychen.barapp;
 
+import java.io.Serializable;
+
 /**
  * Created by jerrychen on 4/25/18.
  */
 
-public class Customer extends User {
+public class Customer extends User implements Serializable {
     public int getAge() {
         return age;
     }
@@ -12,7 +14,6 @@ public class Customer extends User {
     public void setAge(int age) {
         this.age = age;
     }
-
     private String gender;
     private int age;
     public String getGender() {
@@ -22,18 +23,21 @@ public class Customer extends User {
         this.gender = gender;
     }
 
-    public Customer( String name, String email) {
-        super(name, email);
+    public Customer(){
+    }
 
+    public Customer( String name, String email) {
+        super(name, email,false);
         gender="unknown";
+
     }
     public Customer( String name, String email, int age){
-        super(name, email);
+        super(name, email,false);
         this.age=age;
         gender="unknown";
     }
     public Customer( String name, String email, int age,String gender){
-        super(name, email);
+        super(name, email,false);
         this.age=age;
         this.gender=gender;
     }

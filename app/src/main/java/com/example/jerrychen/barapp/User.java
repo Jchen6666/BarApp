@@ -1,10 +1,15 @@
 package com.example.jerrychen.barapp;
 
+import java.io.Serializable;
+
 /**
  * Created by jerrychen on 4/11/18.
  */
 
-public abstract class User {
+public abstract class User implements Serializable {
+    public User() {
+    }
+
     public String getName() {
         return name;
     }
@@ -23,13 +28,14 @@ public abstract class User {
 
     private String name;
     private String email;
-
-
-    private String gender;
-
-    public User(String name, String email){
+    public boolean isStaff() {
+        return isStaff;
+    }
+    private boolean isStaff;
+    public User(String name, String email,boolean isStaff){
         this.name=name;
         this.email=email;
+        this.isStaff=isStaff;
     }
 
 }

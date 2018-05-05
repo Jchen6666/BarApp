@@ -31,7 +31,7 @@ public class CategoryFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    LoginActivity loginActivity;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -101,10 +101,19 @@ public class CategoryFragment extends Fragment {
         });
 
         //Setting listview
-        listViewProducts=(ListView)v.findViewById(R.id.listViewProducts);
-        ProductStaffAdapter productAdapter=new ProductStaffAdapter(getContext(),PRODUCTS);
-        listViewProducts.setAdapter(productAdapter);
-        return v;
+        if (loginActivity.isStaff == "true") {
+            listViewProducts=(ListView)v.findViewById(R.id.listViewProducts);
+            ProductStaffAdapter productAdapter=new ProductStaffAdapter(getContext(),PRODUCTS);
+            listViewProducts.setAdapter(productAdapter);
+            return v;
+        }
+        else  {
+            listViewProducts=(ListView)v.findViewById(R.id.listViewProducts);
+            ProductAdapter productAdapter=new ProductAdapter(getContext(),PRODUCTS);
+            listViewProducts.setAdapter(productAdapter);
+            return v;
+        }
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -146,7 +155,12 @@ public class CategoryFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
     public void updateListView(ListView listView,ArrayList<Product> PRODUCTS){
+        if (loginActivity.isStaff == "true"){
         ProductStaffAdapter productAdapter=new ProductStaffAdapter(getContext(),PRODUCTS);
         listView.setAdapter(productAdapter);
+        }else {
+            ProductAdapter productAdapter=new ProductAdapter(getContext(),PRODUCTS);
+            listView.setAdapter(productAdapter);
+        }
     }
 }

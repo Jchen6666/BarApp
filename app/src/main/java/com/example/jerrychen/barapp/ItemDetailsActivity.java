@@ -24,7 +24,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         android.support.v7.app.ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 
-         tvName = (TextView) findViewById(R.id.textViewDetailName);
+        tvName = (TextView) findViewById(R.id.textViewDetailName);
         tvPrice = (TextView) findViewById(R.id.textViewDetailPrice);
         tvDescription = (TextView) findViewById(R.id.textViewDetailDescription);
         tvVolume = (TextView) findViewById(R.id.textViewDetailVolume);

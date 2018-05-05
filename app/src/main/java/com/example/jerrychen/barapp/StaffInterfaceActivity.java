@@ -13,13 +13,23 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import java.io.Serializable;
+
 public class StaffInterfaceActivity extends AppCompatActivity implements CategoryFragment.OnFragmentInteractionListener {
 
     private DrawerLayout mDrawerLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_interface);
+        Intent intent=getIntent();
+        String isStaff=intent.getStringExtra("isStaff");
+        if (isStaff=="true") {
+           Staff user = (Staff) intent.getSerializableExtra("user");
+        }else if (isStaff=="false"){
+           Customer user = (Customer) intent.getSerializableExtra("user");
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -43,7 +53,6 @@ public class StaffInterfaceActivity extends AppCompatActivity implements Categor
                         StaffInterfaceActivity.this.startActivity(myIntent);
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
-
                         return true;
                     }
                 });
