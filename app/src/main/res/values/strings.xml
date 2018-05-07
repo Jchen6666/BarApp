@@ -7,7 +7,14 @@
     <string name="title_activity_product_detail">ProductDetailActivity</string>
     <string name="Open">Open</string>
     <string name="Close">Close</string>
-
+    <integer-array name="amount">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </integer-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
