@@ -15,10 +15,6 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -26,26 +22,11 @@
                 android:background="?attr/colorPrimary"
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
-
-
-            <android.support.design.widget.TabLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tablayout"
-                android:background="@color/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-                android:layout_below="@+id/toolbar"
-                >
-            </android.support.design.widget.TabLayout>
-
-
-            <android.support.v4.view.ViewPager
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/pager"
-                android:layout_below="@+id/tablayout"
-                >
-            </android.support.v4.view.ViewPager>
+                android:layout_below="@id/toolbar"
+                android:id="@+id/fragment_container">
             </RelativeLayout>
             <android.support.design.widget.BottomNavigationView
 
