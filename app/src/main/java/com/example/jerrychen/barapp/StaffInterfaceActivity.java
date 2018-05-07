@@ -2,32 +2,68 @@ package com.example.jerrychen.barapp;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-public class StaffInterfaceActivity extends AppCompatActivity implements CategoryFragment.OnFragmentInteractionListener {
+public class StaffInterfaceActivity extends AppCompatActivity implements SettingsFragment.OnFragmentInteractionListener,OrdersFragment.OnFragmentInteractionListener,CategoryFragment.OnFragmentInteractionListener,MenuFragment.OnFragmentInteractionListener {
 
     private DrawerLayout mDrawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_interface);
-
+        //Toolbar handling
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
-
         mDrawerLayout = findViewById(R.id.drawer_layout);
+
+
+        //Fragments for bottom navigation bar
+        Fragment menuFragment=new MenuFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, menuFragment);
+        transaction.commit();
+
+        //Bottom navigation bar
+        BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+
+                    case R.id.action_menu:
+                        Toast.makeText(getApplicationContext(),"Just clicked MENU navigation button",Toast.LENGTH_SHORT).show();
+                        switchToMenuFragment();
+                        break;
+                    case R.id.action_orders:
+                        Toast.makeText(getApplicationContext(),"Just clicked ORDERS navigation button",Toast.LENGTH_SHORT).show();
+                        switchToOrdersFragment();
+                        break;
+                    case R.id.action_settings:
+                        Toast.makeText(getApplicationContext(),"Just clicked SETTINGS navigation button",Toast.LENGTH_SHORT).show();
+                        switchToSettingsFragment();
+                        break;
+                }
+                return true;
+            }
+        });
+        
+
 
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -49,40 +85,18 @@ public class StaffInterfaceActivity extends AppCompatActivity implements Categor
                 });
 
 
-
-        //Handling swipeable tabs
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Beer"));
-        tabLayout.addTab(tabLayout.newTab().setText("Wine"));
-        tabLayout.addTab(tabLayout.newTab().setText("Shots"));
-        tabLayout.addTab(tabLayout.newTab().setText("Drinks"));
-        tabLayout.addTab(tabLayout.newTab().setText("Snacks"));
-        tabLayout.addTab(tabLayout.newTab().setText("Soft Drinks"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
+    }
+    public void switchToMenuFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragment_container, new MenuFragment()).commit();
+    }
+    public void switchToOrdersFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragment_container, new OrdersFragment()).commit();
+    }
+    public void switchToSettingsFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
