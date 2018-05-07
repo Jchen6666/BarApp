@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <TextView
         android:layout_centerHorizontal="true"
@@ -13,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textColor="@color/colorPrimaryDark"
+        />
 
     <Switch
         android:id="@+id/simpleSwitch"
@@ -36,13 +38,16 @@
         android:layout_marginStart="50dp"
         android:text="Drunk mode"
         android:textSize="30sp"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textColor="@color/colorPrimaryDark"
+        />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="140dp"
-        android:text="Enlarges text if fucked"
-        android:layout_marginStart="52dp"/>
+        android:text="Enlarges menu if fucked up"
+        android:layout_marginStart="52dp"
+        />
 
 
 </RelativeLayout>
