@@ -30,7 +30,11 @@ import java.util.Map;
  */
 
 public class ProductAdapter extends ArrayAdapter<Product> {
-int amount;
+    private int amount;
+    private String uid;
+    private Date date;
+    boolean created=false;
+    Order myOrder;
     public ProductAdapter(Context context, ArrayList<Product> users) {
         super(context, 0, users);
     }
@@ -65,17 +69,19 @@ int amount;
                 FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
                 FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
                 FirebaseUser user=firebaseAuth.getCurrentUser();
-                DatabaseReference dbRef= firebaseDatabase.getReference();
+                final DatabaseReference dbRef= firebaseDatabase.getReference();
+                date=new Date();
+                uid =user.getUid();
                 amount=Integer.parseInt(etAmount.getText().toString());
-                dbRef.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+
+                dbRef.child("users").child(uid).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.child("currentOrder").exists()){
-
-
-                        }else{
-
-                        }
+                            created=true;
+                            Log.d("Log_Tag"," created: true");
+                            myOrder=dataSnapshot.child("currentOrder").getValue(Order.class);
+                       }
                     }
 
                     @Override
@@ -84,8 +90,32 @@ int amount;
                     }
                 });
 
+               if (created){
+                   int price;
+                   if (myOrder.getOrderMap().containsKey(product.getID())){
+                       price=amount*product.getPrice();
+                       amount=amount+myOrder.getOrderMap().get(product.getID());
+                       Log.d("Log_tag","AMOUNT: "+amount);
+                       myOrder.getOrderMap().put(product.getID(),amount);
+                       myOrder.setPrice(price);
+                       myOrder.setDate(date);
+                       dbRef.child("users").child(uid).child("currentOrder").setValue(myOrder);
 
-                //Order currentOder=new Order(date,);
+                   }else {
+                     //  price=amount*product.getPrice()+myOrder.getPrice();
+                       myOrder.getOrderMap().put(product.getID(), amount);
+                       myOrder.setDate(date);
+                       dbRef.child("users").child(uid).child("currentOrder").setValue(myOrder);
+                   }
+
+            }
+ //           else {
+//                   Map<String,Integer> myOrderMap=new HashMap<>();
+//                   myOrderMap.put(product.getID(),amount);
+//                   int price=amount*product.getPrice();
+//                   Order myOrder=new Order(date,myOrderMap,Status.unpaid,price);
+//                   dbRef.child("users").child(uid).child("currentOrder").setValue(myOrder);
+//               }
 
             }
         });

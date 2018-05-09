@@ -10,17 +10,36 @@ import java.util.Map;
  */
 
 public class Order {
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     private Date date;
     private Map<String,Integer> orderMap;
     private Status status;
-    private final SecureRandom secureRandom;
+
+    public String getId() {
+        return id;
+    }
+
     private final String id;
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     private int price;
- public Order(Date date, Map orderMap, Status status,int price){
+    public Order(){
+        this.id=generateId();
+    }
+ public Order(Date date, Map orderMap,Status status,int price){
      this.date=date;
      this.orderMap=orderMap;
      this.status=status;
-     this.secureRandom=new SecureRandom();
      this.id=generateId();
      this.price=price;
  }
@@ -39,6 +58,7 @@ public class Order {
         this.status = status;
     }
     public String generateId(){
+     SecureRandom secureRandom=new SecureRandom();
         char[] temp=new char[4];
         for (int i=0;i<4;i++){
             temp[i]=(char)(secureRandom.nextInt(10)+48);
