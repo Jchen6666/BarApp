@@ -5,9 +5,9 @@
     tools:context="com.example.jerrychen.barapp.OrdersFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/listViewOrders"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is where the order fragment is supposed to be." />
+        android:layout_height="match_parent"></ListView>
 
 </FrameLayout>
