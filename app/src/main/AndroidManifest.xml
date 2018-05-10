@@ -9,20 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".LoginActivity" >
+        <activity android:name=".LoginActivity">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
-        <activity android:name=".RegisterActivity">
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".AddProductActivity" />
         <activity android:name=".EditProductActivity" />
-        <activity android:name=".ItemDetailsActivity"></activity>
-        <activity android:name=".StaffInterfaceActivity">
-        </activity>
+        <activity android:name=".ItemDetailsActivity" />
+        <activity android:name=".StaffInterfaceActivity"></activity>
+        <activity android:name=".OrderDetailActivity"></activity>
     </application>
 
 </manifest>

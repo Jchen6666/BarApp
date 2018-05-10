@@ -1,12 +1,31 @@
 package com.example.jerrychen.barapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -28,7 +47,8 @@ public class OrdersFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
+    private ListView listViewOrders;
+    private ArrayList<Order> CURRENT_ORDERS;
     public OrdersFragment() {
         // Required empty public constructor
     }
@@ -64,7 +84,89 @@ public class OrdersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_orders, container, false);
+        View view=inflater.inflate(R.layout.fragment_orders, container, false);
+        CURRENT_ORDERS=new ArrayList<>();
+
+        FirebaseDatabase database=FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference=database.getReference();
+
+//        HashMap<String,Integer> temp=new HashMap<>();
+//        temp.put("JMMOIMVNHX",2);
+//        Date date=new Date(System.currentTimeMillis());
+//        Order order=new Order(date,temp,21);
+//        databaseReference.child("orders").child(order.getId()).setValue(order);
+//        databaseReference.child("orders").child(order.getId()).child("status").setValue(Status.paid);
+
+
+        databaseReference.child("orders").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                CURRENT_ORDERS=new ArrayList<>();
+                for(DataSnapshot child:children){
+                    Order temp=child.getValue(Order.class);
+                    if(temp.getStatus()==Status.paid||temp.getStatus()==Status.started) {
+                        CURRENT_ORDERS.add(temp);
+                    }
+                }
+                Collections.sort(CURRENT_ORDERS, new Comparator<Order>() {
+                    @Override
+                    public int compare(Order order, Order t1) {
+                        return -order.getDate().compareTo(t1.getDate());
+                    }
+                });
+                if(listViewOrders!=null) {
+                    updateListView(listViewOrders, CURRENT_ORDERS);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //Set up a listView
+        listViewOrders=(ListView)view.findViewById(R.id.listViewOrders);
+        OrdersStaffAdapter productAdapter=new OrdersStaffAdapter(getContext(),CURRENT_ORDERS);
+        listViewOrders.setAdapter(productAdapter);
+
+        listViewOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent myIntent = new Intent(getContext(), OrderDetailActivity.class);
+                myIntent.putExtra("Order",CURRENT_ORDERS.get(i));
+                getContext().startActivity(myIntent);
+            }
+        });
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                FirebaseDatabase database=FirebaseDatabase.getInstance();
+                DatabaseReference databaseReference=database.getReference();
+                for (int i = 0; i < CURRENT_ORDERS.size(); i++) {
+                    Order order=CURRENT_ORDERS.get(i);
+                    long timeElapsed = System.currentTimeMillis()- order.getDate().getTime();
+                    if (timeElapsed > 300000) {
+                        if(!order.getColor().equals("#FF0000")){
+                            databaseReference.child("orders").child(order.getId()).child("color").setValue("#FF0000");
+                        }
+                    }else if (timeElapsed > 180000) {
+                        if(!order.getColor().equals("#FFFF00")){
+                            databaseReference.child("orders").child(order.getId()).child("color").setValue("#FFFF00");
+                        }
+                    }else{
+                        if(!order.getColor().equals("#7ED41B")){
+                            databaseReference.child("orders").child(order.getId()).child("color").setValue("#7ED41B");
+                        }
+                    }
+
+                }
+            }
+        }, 0, 5000);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,5 +206,11 @@ public class OrdersFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    public void updateListView(ListView listView,ArrayList<Order> CURRENT_ORDERS){
+            if(getContext()!=null) {
+                OrdersStaffAdapter productAdapter = new OrdersStaffAdapter(getContext(), CURRENT_ORDERS);
+                listView.setAdapter(productAdapter);
+            }
     }
 }

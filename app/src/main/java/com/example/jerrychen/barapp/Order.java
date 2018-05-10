@@ -1,5 +1,9 @@
 package com.example.jerrychen.barapp;
 
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.security.SecureRandom;
 import java.util.Date;
@@ -9,20 +13,39 @@ import java.util.Map;
  * Created by jerrychen on 5/2/18.
  */
 
-public class Order {
+public class Order implements Serializable{
     private Date date;
     private Map<String,Integer> orderMap;
     private Status status;
-    private final SecureRandom secureRandom;
+    private String color;
     private final String id;
+    //4 digit code to verify transaction
+    private final String code;
     private int price;
- public Order(Date date, Map orderMap, Status status,int price){
+
+    public String getId() {
+        return id;
+    }
+
+    public Order(){
+        this.id=generateId();
+        this.code=generateCode();
+        this.color="#7ED41B";
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public Order(Date date, Map orderMap, int price){
      this.date=date;
      this.orderMap=orderMap;
-     this.status=status;
-     this.secureRandom=new SecureRandom();
+     setStatus(Status.unpaid);
      this.id=generateId();
+     this.code=generateCode();
      this.price=price;
+     this.color="#7ED41B";
+
  }
 
     public Date getDate() {
@@ -39,10 +62,28 @@ public class Order {
         this.status = status;
     }
     public String generateId(){
+        char[] temp=new char[10];
+        SecureRandom secureRandom=new SecureRandom();
+        for (int i=0;i<10;i++){
+            temp[i]=(char)(secureRandom.nextInt(10)+48);
+        }
+        return String.valueOf(temp);
+    }
+    public String generateCode(){
         char[] temp=new char[4];
+        SecureRandom secureRandom=new SecureRandom();
         for (int i=0;i<4;i++){
             temp[i]=(char)(secureRandom.nextInt(10)+48);
         }
         return String.valueOf(temp);
     }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
 }

@@ -1,7 +1,6 @@
 package com.example.jerrychen.barapp;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Kangur on 12.04.2018.
@@ -47,7 +43,7 @@ int amount;
 
         // Lookup view for data population
         ImageView ivPicture=(ImageView) convertView.findViewById(R.id.imageView);
-        TextView tvName = (TextView) convertView.findViewById(R.id.textViewName);
+        TextView tvName = (TextView) convertView.findViewById(R.id.textViewNumber);
         TextView tvPrice = (TextView) convertView.findViewById(R.id.textViewPrice);
         final EditText etAmount=convertView.findViewById(R.id.editTextAmount);
         Button buttonOrder=convertView.findViewById(R.id.buttonOrder);
