@@ -93,7 +93,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                if (created){
                    int price;
                    if (myOrder.getOrderMap().containsKey(product.getID())){
-                       price=amount*product.getPrice();
+                       price=amount*product.getPrice()+myOrder.getPrice();
                        amount=amount+myOrder.getOrderMap().get(product.getID());
                        Log.d("Log_tag","AMOUNT: "+amount);
                        myOrder.getOrderMap().put(product.getID(),amount);
@@ -102,22 +102,17 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                        dbRef.child("users").child(uid).child("currentOrder").setValue(myOrder);
 
                    }else {
-                     //  price=amount*product.getPrice()+myOrder.getPrice();
+                       price=amount*product.getPrice()+myOrder.getPrice();
                        myOrder.getOrderMap().put(product.getID(), amount);
                        myOrder.setDate(date);
+                       myOrder.setPrice(price);
                        dbRef.child("users").child(uid).child("currentOrder").setValue(myOrder);
                    }
 
             }
- //           else {
-//                   Map<String,Integer> myOrderMap=new HashMap<>();
-//                   myOrderMap.put(product.getID(),amount);
-//                   int price=amount*product.getPrice();
-//                   Order myOrder=new Order(date,myOrderMap,Status.unpaid,price);
-//                   dbRef.child("users").child(uid).child("currentOrder").setValue(myOrder);
-//               }
-
-            }
+            if (created=false){
+                   Map<String, Integer> myOrderMap = new HashMap<>();
+1            }
         });
         // Return the completed view to render on screen
         return convertView;
