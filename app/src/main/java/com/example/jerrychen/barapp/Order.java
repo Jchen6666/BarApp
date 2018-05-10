@@ -36,13 +36,19 @@ public class Order {
     public Order(){
         this.id=generateId();
     }
- public Order(Date date, Map orderMap,Status status,int price){
+
+    public void setOrderMap(Map<String, Integer> orderMap) {
+        this.orderMap = orderMap;
+    }
+
+    public Order(Date date, Map orderMap, Status status, int price){
      this.date=date;
      this.orderMap=orderMap;
      this.status=status;
      this.id=generateId();
      this.price=price;
  }
+
 
     public Date getDate() {
         return date;
