@@ -2,6 +2,7 @@ package com.example.jerrychen.barapp;
 
 import java.lang.reflect.Array;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public class Order {
     }
 
     private Date date;
-    private Map<String,Integer> orderMap;
+    private Map<String,ArrayList<String>> orderMap;
     private Status status;
 
     public String getId() {
@@ -37,7 +38,7 @@ public class Order {
         this.id=generateId();
     }
 
-    public void setOrderMap(Map<String, Integer> orderMap) {
+    public void setOrderMap(Map<String, ArrayList<String>> orderMap) {
         this.orderMap = orderMap;
     }
 
@@ -53,7 +54,7 @@ public class Order {
     public Date getDate() {
         return date;
     }
-    public Map<String, Integer> getOrderMap() {
+    public Map<String, ArrayList<String>> getOrderMap() {
         return orderMap;
     }
     public Status getStatus() {

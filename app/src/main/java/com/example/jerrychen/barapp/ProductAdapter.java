@@ -31,7 +31,7 @@ import java.util.Map;
  */
 
 public class ProductAdapter extends ArrayAdapter<Product> {
-    private int amount;
+    private String quantity;
     private String uid;
     private boolean created,repeated;
     Order myOrder;
@@ -76,7 +76,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                 final DatabaseReference dbRef= firebaseDatabase.getReference();
 
                 uid =user.getUid();
-                amount=Integer.parseInt(etAmount.getText().toString());
+                quantity=etAmount.getText().toString();
                 Log.d("Log_Tag","Userid: "+user.getUid());
                 dbRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -85,17 +85,23 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
                             myOrder=dataSnapshot.child("currentOrder").getValue(Order.class);
                             if (myOrder.getOrderMap().containsKey(product.getID())){
-                                int price=amount*product.getPrice()+myOrder.getPrice();
-                                int newAmount=amount+myOrder.getOrderMap().get(product.getID());
-                                Log.d("Log_tag","AMOUNT: "+amount);
-                                myOrder.getOrderMap().put(product.getID(),newAmount);
+                                ArrayList<String> myOrderList=myOrder.getOrderMap().get(product.getID());
+                                int price=Integer.parseInt(quantity)*product.getPrice()+myOrder.getPrice();
+                                int newAmount=Integer.parseInt(quantity)+Integer.parseInt(myOrder.getOrderMap().get(product.getID()).get(1));
+                                myOrderList.remove(1);
+                                myOrderList.add(1,Integer.toString(newAmount));
+                                Log.d("Log_tag","AMOUNT: "+quantity);
+                                myOrder.getOrderMap().put(product.getID(),myOrderList);
                                 myOrder.setPrice(price);
                                 dbRef.child("users").child(uid).child("currentOrder").setValue(myOrder);
 
                             }
                             else {
-                               int price=amount*product.getPrice()+myOrder.getPrice();
-                               myOrder.getOrderMap().put(product.getID(), amount);
+                                ArrayList<String>myOrderList=new ArrayList<>();
+                               int price=Integer.parseInt(quantity)*product.getPrice()+myOrder.getPrice();
+                               myOrderList.add(product.getCategory().toString());
+                               myOrderList.add(quantity);
+                               myOrder.getOrderMap().put(product.getID(), myOrderList);
                                myOrder.setPrice(price);
                                dbRef.child("users").child(uid).child("currentOrder").setValue(myOrder);
                             }
@@ -104,9 +110,12 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                         }
                         else {
                             Date date=new Date();
-                            int price=amount*product.getPrice();
-                            Map<String, Integer> myOrderMap = new HashMap<>();
-                            myOrderMap.put(product.getID(),amount);
+                            int price=Integer.parseInt(quantity)*product.getPrice();
+                            ArrayList<String> myOrderList=new ArrayList<>();
+                            myOrderList.add(product.getCategory().toString());
+                            myOrderList.add(quantity);
+                            Map<String, ArrayList<String>> myOrderMap = new HashMap<>();
+                            myOrderMap.put(product.getID(),myOrderList);
                             Order myNewOrder=new Order(date,myOrderMap,Status.unpaid,price);
                             dbRef.child("users").child(uid).child("currentOrder").setValue(myNewOrder);
                             etAmount.setText(null);
