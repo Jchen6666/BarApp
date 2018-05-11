@@ -4,10 +4,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.jerrychen.barapp.CategoryFragment">
 
+
     <!-- TODO: Update blank fragment layout -->
     <ListView
         android:id="@+id/listViewProducts"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>
+
 </LinearLayout>

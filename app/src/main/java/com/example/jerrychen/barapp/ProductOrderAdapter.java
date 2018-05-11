@@ -26,9 +26,9 @@ import java.util.Map;
 
 public class ProductOrderAdapter extends BaseAdapter {
 
-    private Map<String, Integer> mData = new HashMap<String, Integer>();
+    private Map<String, ArrayList<String>> mData = new HashMap<String, ArrayList<String>>();
     private String[] mKeys;
-    public ProductOrderAdapter(Map<String, Integer> data){
+    public ProductOrderAdapter(Map<String, ArrayList<String>> data){
         mData  = data;
         mKeys = mData.keySet().toArray(new String[data.size()]);
     }
@@ -51,7 +51,7 @@ public class ProductOrderAdapter extends BaseAdapter {
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
         final String key = mKeys[pos];
-        String Value = getItem(pos).toString();
+        ArrayList<String> Value = mData.get(mKeys[pos]);
         final Product product;
         //do your view stuff here
         if (convertView == null) {
@@ -61,25 +61,25 @@ public class ProductOrderAdapter extends BaseAdapter {
         final TextView tvQuantity=(TextView)convertView.findViewById(R.id.textViewQuantity);
         FirebaseDatabase database=FirebaseDatabase.getInstance();
         DatabaseReference databaseReference=database.getReference();
-        databaseReference.child("Products").child("Beer").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+        databaseReference.child("Products").child(Value.get(0)).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Iterable<DataSnapshot> children = dataSnapshot.getChildren();
 
-                for(DataSnapshot child:children){
-                    Product temp=(child.getValue(Product.class));
-                    if(temp.getID().equals(key)){
-                        tvName.setText(temp.getName());
+                    for (DataSnapshot child : children) {
+                        Product temp = (child.getValue(Product.class));
+                        if (temp.getID().equals(key)) {
+                            tvName.setText(temp.getName());
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-        tvQuantity.setText(Value);
+                }
+            });
+        tvQuantity.setText(Value.get(1));
 
 
 

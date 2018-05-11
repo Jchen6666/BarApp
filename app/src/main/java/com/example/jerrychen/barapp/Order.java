@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ import java.util.Map;
 
 public class Order implements Serializable{
     private Date date;
-    private Map<String,Integer> orderMap;
+    private Map<String,ArrayList<String>> orderMap;
     private Status status;
     private String color;
     private final String id;
@@ -51,7 +52,7 @@ public class Order implements Serializable{
     public Date getDate() {
         return date;
     }
-    public Map<String, Integer> getOrderMap() {
+    public Map<String, ArrayList<String>> getOrderMap() {
         return orderMap;
     }
     public Status getStatus() {
