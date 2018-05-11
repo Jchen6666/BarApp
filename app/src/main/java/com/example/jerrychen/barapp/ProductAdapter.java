@@ -94,7 +94,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                                 myOrder.getOrderMap().put(product.getID(),myOrderList);
                                 myOrder.setPrice(price);
                                 dbRef.child("users").child(uid).child("currentOrder").setValue(myOrder);
-
+                                dbRef.child("orders").child(myOrder.getId()).setValue(myOrder);
                             }
                             else {
                                 ArrayList<String>myOrderList=new ArrayList<>();
@@ -104,6 +104,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                                myOrder.getOrderMap().put(product.getID(), myOrderList);
                                myOrder.setPrice(price);
                                dbRef.child("users").child(uid).child("currentOrder").setValue(myOrder);
+                               dbRef.child("orders").child(myOrder.getId()).setValue(myOrder);
                             }
                             Log.d("Log_Tag"," created: "+repeated+" "+created);
 
@@ -118,6 +119,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                             myOrderMap.put(product.getID(),myOrderList);
                             Order myNewOrder=new Order(date,myOrderMap,Status.unpaid,price);
                             dbRef.child("users").child(uid).child("currentOrder").setValue(myNewOrder);
+                            dbRef.child("orders").child(myNewOrder.getId()).setValue(myNewOrder);
                             etAmount.setText(null);
                         }
 

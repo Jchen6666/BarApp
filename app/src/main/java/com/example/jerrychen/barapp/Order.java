@@ -19,6 +19,11 @@ public class Order {
     private Map<String,ArrayList<String>> orderMap;
     private Status status;
 
+    public String getCode() {
+        return code;
+    }
+
+    private final String code;
     public String getId() {
         return id;
     }
@@ -36,6 +41,7 @@ public class Order {
     private int price;
     public Order(){
         this.id=generateId();
+        this.code=generateCode();
     }
 
     public void setOrderMap(Map<String, ArrayList<String>> orderMap) {
@@ -47,6 +53,8 @@ public class Order {
      this.orderMap=orderMap;
      this.status=status;
      this.id=generateId();
+     this.code=generateCode();
+
      this.price=price;
  }
 
@@ -65,8 +73,16 @@ public class Order {
         this.status = status;
     }
     public String generateId(){
-     SecureRandom secureRandom=new SecureRandom();
+        char[] temp=new char[10];
+        SecureRandom secureRandom=new SecureRandom();
+        for (int i=0;i<10;i++){
+            temp[i]=(char)(secureRandom.nextInt(10)+48);
+        }
+        return String.valueOf(temp);
+    }
+    public String generateCode(){
         char[] temp=new char[4];
+        SecureRandom secureRandom=new SecureRandom();
         for (int i=0;i<4;i++){
             temp[i]=(char)(secureRandom.nextInt(10)+48);
         }
