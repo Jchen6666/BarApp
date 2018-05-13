@@ -98,7 +98,8 @@ public class OrdersFragment extends Fragment {
               }
           });
           listViewOrders=view.findViewById(R.id.listViewOrders);
-        //  OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(getContext(),myOrder.getOrderMap());
+          OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap());
+          listViewOrders.setAdapter(ordersCustomerAdapter);
       }
         return view;
     }
