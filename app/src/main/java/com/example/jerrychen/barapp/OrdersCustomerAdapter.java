@@ -83,10 +83,7 @@ public class OrdersCustomerAdapter extends BaseAdapter {
                         if (temp.getID().equals(key)){
                             textViewName.setText(temp.getName());
                             Picasso.get().load(temp.getPictureUrl()).into(imageView);
-
                         }
-
-
                     }
             }
 
