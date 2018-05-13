@@ -74,14 +74,12 @@ public class OrdersCustomerAdapter extends BaseAdapter {
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference dbRef=firebaseDatabase.getReference();
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-        FirebaseUser user=firebaseAuth.getCurrentUser();
         dbRef.child("products").child(value.get(0)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                     Iterable<DataSnapshot>children=dataSnapshot.getChildren();
                     for (DataSnapshot child:children){
                         Product temp=(child.getValue(Product.class));
-
                         if (temp.getID().equals(key)){
                             Log.d("Tag","TAG NAME"+ temp.getName());
                             textViewName.setText(temp.getName());

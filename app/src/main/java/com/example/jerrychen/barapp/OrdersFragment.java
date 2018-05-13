@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -98,6 +99,9 @@ public class OrdersFragment extends Fragment {
                       OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap());
                       listViewOrders.setAdapter(ordersCustomerAdapter);
                   }
+                  if (listViewOrders!=null){
+                      updateListView(listViewOrders,myOrder.getOrderMap());
+                  }
               }
 
               @Override
@@ -109,6 +113,7 @@ public class OrdersFragment extends Fragment {
 
 
       }
+
         return view;
     }
 
