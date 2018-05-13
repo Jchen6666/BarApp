@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class OrdersFragment extends Fragment {
    private Order myOrder;
+   Map<String,ArrayList<String>> orderMap;
    private ListView listViewOrders;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,14 +86,17 @@ public class OrdersFragment extends Fragment {
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         FirebaseUser user=firebaseAuth.getCurrentUser();
         DatabaseReference dbRef=firebaseDatabase.getReference();
+        listViewOrders=view.findViewById(R.id.listViewOrders);
         if (LoginActivity.isStaff=="false") {
           dbRef.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
               @Override
               public void onDataChange(DataSnapshot dataSnapshot) {
                   if (dataSnapshot.child("currentOrder").exists()) {
                       myOrder = dataSnapshot.child("currentOrder").getValue(Order.class);
-                  } else {
-                      Toast.makeText(getContext(), "cannot get information about your order", Toast.LENGTH_LONG).show();
+                      orderMap=myOrder.getOrderMap();
+                      Log.d("Tag","TAG"+orderMap);
+                      OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(orderMap);
+                      listViewOrders.setAdapter(ordersCustomerAdapter);
                   }
               }
 
@@ -97,9 +105,10 @@ public class OrdersFragment extends Fragment {
 
               }
           });
-          listViewOrders=view.findViewById(R.id.listViewOrders);
-          OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap());
-          listViewOrders.setAdapter(ordersCustomerAdapter);
+
+//          listViewOrders=view.findViewById(R.id.listViewOrders);
+//          OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap());
+//          listViewOrders.setAdapter(ordersCustomerAdapter);
       }
         return view;
     }
