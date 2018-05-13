@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                             DatabaseReference dbRef=firebaseDatabase.getReference();
                             dbRef.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
                                 Intent intent=new Intent(LoginActivity.this,StaffInterfaceActivity.class);
+                             //   Intent intent=new Intent(LoginActivity.this,CartActivity.class);
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     Map<String,String>map=(Map<String, String>)dataSnapshot.getValue();

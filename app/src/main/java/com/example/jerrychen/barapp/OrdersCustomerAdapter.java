@@ -60,7 +60,7 @@ public class OrdersCustomerAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent){
 // Get the data item for this position
         final String key=mKeys[position];
-        ArrayList<String>value=mData.get(mKeys[position]);
+        final ArrayList<String>value=mData.get(mKeys[position]);
         final Product product;
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
@@ -84,8 +84,8 @@ public class OrdersCustomerAdapter extends BaseAdapter {
                         Log.d("Tag","TAG NAME"+ temp.getName());
                         if (temp.getID().equals(key)){
                             textViewName.setText(temp.getName());
-
                             Picasso.get().load(temp.getPictureUrl()).into(imageView);
+                            editText.setText(value.get(1));
                         }
                     }
             }
