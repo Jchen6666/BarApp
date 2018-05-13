@@ -81,8 +81,9 @@ public class OrdersCustomerAdapter extends BaseAdapter {
                     Iterable<DataSnapshot>children=dataSnapshot.getChildren();
                     for (DataSnapshot child:children){
                         Product temp=(child.getValue(Product.class));
-                        Log.d("Tag","TAG NAME"+ temp.getName());
+
                         if (temp.getID().equals(key)){
+                            Log.d("Tag","TAG NAME"+ temp.getName());
                             textViewName.setText(temp.getName());
                             Picasso.get().load(temp.getPictureUrl()).into(imageView);
                             editText.setText(value.get(1));

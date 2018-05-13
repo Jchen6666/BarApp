@@ -91,11 +91,11 @@ public class OrdersFragment extends Fragment {
           dbRef.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
               @Override
               public void onDataChange(DataSnapshot dataSnapshot) {
+                  myOrder=new Order();
                   if (dataSnapshot.child("currentOrder").exists()) {
                       myOrder = dataSnapshot.child("currentOrder").getValue(Order.class);
-                      orderMap=myOrder.getOrderMap();
-                      Log.d("Tag","TAG"+orderMap);
-                      OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(orderMap);
+                      Log.d("Tag","TAG"+myOrder);
+                      OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap());
                       listViewOrders.setAdapter(ordersCustomerAdapter);
                   }
               }
