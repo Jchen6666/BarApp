@@ -3,6 +3,7 @@ package com.example.jerrychen.barapp;
 import android.content.Context;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class OrdersCustomerAdapter extends BaseAdapter {
 
     public OrdersCustomerAdapter(Map<String,ArrayList<String>>data) {
         mData=data;
-        mKeys=mData.keySet().toArray(new String[data.size()]);
+        mKeys = mData.keySet().toArray(new String[data.size()]);
     }
 
     @Override
@@ -80,8 +81,10 @@ public class OrdersCustomerAdapter extends BaseAdapter {
                     Iterable<DataSnapshot>children=dataSnapshot.getChildren();
                     for (DataSnapshot child:children){
                         Product temp=(child.getValue(Product.class));
+                        Log.d("Tag","TAG NAME"+ temp.getName());
                         if (temp.getID().equals(key)){
                             textViewName.setText(temp.getName());
+
                             Picasso.get().load(temp.getPictureUrl()).into(imageView);
                         }
                     }

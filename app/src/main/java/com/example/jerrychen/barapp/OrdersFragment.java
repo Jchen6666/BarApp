@@ -104,11 +104,10 @@ public class OrdersFragment extends Fragment {
               public void onCancelled(DatabaseError databaseError) {
 
               }
+
           });
 
-//          listViewOrders=view.findViewById(R.id.listViewOrders);
-//          OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap());
-//          listViewOrders.setAdapter(ordersCustomerAdapter);
+
       }
         return view;
     }
@@ -150,5 +149,11 @@ public class OrdersFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    public void updateListView(ListView listView,Map<String,ArrayList<String>> CURRENT_ORDER){
+        if(getContext()!=null) {
+            OrdersCustomerAdapter productAdapter = new OrdersCustomerAdapter( CURRENT_ORDER);
+            listView.setAdapter(productAdapter);
+        }
     }
 }
