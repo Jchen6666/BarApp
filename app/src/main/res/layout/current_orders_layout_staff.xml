@@ -3,37 +3,38 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="128dp"
     android:id="@+id/relativeLayoutOrders">
 
     <TextView
         android:id="@+id/textViewNumber"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
+        android:layout_above="@+id/textViewItemsQuantity"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="17dp"
         android:text="TextView"
-        android:textSize="22sp" />
-
-    <ImageView
-        android:id="@+id/imageViewClock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textViewNumber"
-        android:layout_marginStart="116dp"
-        android:layout_toEndOf="@+id/textViewNumber"
-        app:srcCompat="@drawable/ic_access_time_black_24dp" />
+        android:textSize="32sp" />
 
     <TextView
         android:id="@+id/textViewTime"
         android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="21dp"
+        android:text="TextView"
+        android:textSize="32sp" />
+
+    <TextView
+        android:id="@+id/textViewItemsQuantity"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageViewClock"
-        android:layout_marginStart="12dp"
-        android:layout_toEndOf="@+id/imageViewClock"
-        android:text="TextView" />
+        android:layout_alignStart="@+id/textViewNumber"
+        android:layout_below="@+id/textViewTime"
+        android:layout_marginTop="11dp"
+        android:text="TextView"
+        android:textSize="14sp" />
 
 
 </RelativeLayout>

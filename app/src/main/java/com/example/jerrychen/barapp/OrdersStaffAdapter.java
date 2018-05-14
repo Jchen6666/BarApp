@@ -26,6 +26,7 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by Kangur on 09.05.2018.
@@ -48,6 +49,18 @@ public class OrdersStaffAdapter extends ArrayAdapter<Order> {
         // Lookup view for data population
         TextView tvOrderNumber=(TextView)convertView.findViewById(R.id.textViewNumber);
         TextView tvOrderTime=(TextView)convertView.findViewById(R.id.textViewTime);
+        TextView tvItemsQuantity=(TextView)convertView.findViewById(R.id.textViewItemsQuantity);
+        int itemsQuantity=0;
+        for (Map.Entry<String, ArrayList<String>> pair : order.getOrderMap().entrySet()) {
+            itemsQuantity+=Integer.valueOf(pair.getValue().get(1));
+        }
+        String itemsQuantityText;
+        if(itemsQuantity==1) {
+            itemsQuantityText = itemsQuantity + " item";
+        }else{
+            itemsQuantityText=itemsQuantity+" items";
+        }
+        tvItemsQuantity.setText(itemsQuantityText);
         RelativeLayout relativeLayout=(RelativeLayout)convertView.findViewById(R.id.relativeLayoutOrders);
         String id="#"+order.getCode();
         tvOrderNumber.setText(id);

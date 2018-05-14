@@ -155,12 +155,14 @@ public class CategoryFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
     public void updateListView(ListView listView,ArrayList<Product> PRODUCTS){
-        if (loginActivity.isStaff == "true"){
-        ProductStaffAdapter productAdapter=new ProductStaffAdapter(getContext(),PRODUCTS);
-        listView.setAdapter(productAdapter);
-        }else {
-            ProductAdapter productAdapter=new ProductAdapter(getContext(),PRODUCTS);
-            listView.setAdapter(productAdapter);
+        if(getContext()!=null) {
+            if (loginActivity.isStaff == "true") {
+                ProductStaffAdapter productAdapter = new ProductStaffAdapter(getContext(), PRODUCTS);
+                listView.setAdapter(productAdapter);
+            } else {
+                ProductAdapter productAdapter = new ProductAdapter(getContext(), PRODUCTS);
+                listView.setAdapter(productAdapter);
+            }
         }
     }
 }

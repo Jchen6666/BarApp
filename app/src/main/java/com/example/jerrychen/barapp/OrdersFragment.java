@@ -149,16 +149,16 @@ public class OrdersFragment extends Fragment {
                     Order order=CURRENT_ORDERS.get(i);
                     long timeElapsed = System.currentTimeMillis()- order.getDate().getTime();
                     if (timeElapsed > 300000) {
-                        if(!order.getColor().equals("#FF0000")){
-                            databaseReference.child("orders").child(order.getId()).child("color").setValue("#FF0000");
+                        if(!order.getColor().equals("#ff6666")){
+                            databaseReference.child("orders").child(order.getId()).child("color").setValue("#ff6666");
                         }
                     }else if (timeElapsed > 180000) {
-                        if(!order.getColor().equals("#FFFF00")){
-                            databaseReference.child("orders").child(order.getId()).child("color").setValue("#FFFF00");
+                        if(!order.getColor().equals("#ffff66")){
+                            databaseReference.child("orders").child(order.getId()).child("color").setValue("#ffff66");
                         }
                     }else{
-                        if(!order.getColor().equals("#7ED41B")){
-                            databaseReference.child("orders").child(order.getId()).child("color").setValue("#7ED41B");
+                        if(!order.getColor().equals("#99ff99")){
+                            databaseReference.child("orders").child(order.getId()).child("color").setValue("#99ff99");
                         }
                     }
 
