@@ -93,7 +93,7 @@ public class OrdersCustomerAdapter extends BaseAdapter {
                                     while (!isInterrupted()){
                                         try{
                                             Thread.sleep(1000); //1000ms=1 second
-                                          
+
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
