@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,13 +85,15 @@ public class OrdersFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_orders, container, false);
+        Button orderButton=view.findViewById(R.id.buttonOrder);
+
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-        FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
-        FirebaseUser user=firebaseAuth.getCurrentUser();
-        DatabaseReference dbRef=firebaseDatabase.getReference();
+        final FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
+        final FirebaseUser user=firebaseAuth.getCurrentUser();
+        final DatabaseReference dbRef=firebaseDatabase.getReference();
         listViewOrders=view.findViewById(R.id.listViewOrders);
         if (LoginActivity.isStaff=="false") {
-          dbRef.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+          dbRef.child("users").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
               @Override
               public void onDataChange(DataSnapshot dataSnapshot) {
                   myOrder=new Order();
@@ -114,7 +118,19 @@ public class OrdersFragment extends Fragment {
               OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap());
               listViewOrders.setAdapter(ordersCustomerAdapter);
 
+
+
           }
+            orderButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (myOrder!=null) {
+                        Order finalOrder = new Order(new Date(), myOrder.getOrderMap(), Status.unpaid, 100);
+                        dbRef.child("users").child(user.getUid()).child("currentOrder").setValue(finalOrder);
+                    }
+                    Log.d("Tag","Buttonclicked");
+                }
+            });
 
 
       }

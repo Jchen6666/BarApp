@@ -85,17 +85,19 @@ public class OrdersCustomerAdapter extends BaseAdapter {
                         final Product temp=(child.getValue(Product.class));
                         if (temp.getID().equals(key)){
                          //   Log.d("Tag","TAG NAME"+ temp.getName());
-                            textViewPrice.setText(temp.getPrice()+" krr");
+                            textViewPrice.setText(temp.getPrice()*Integer.parseInt(value.get(1))+" krr");
                             textViewName.setText(temp.getName());
+
                             Picasso.get().load(temp.getPictureUrl()).into(imageView);
                             editText.setText(value.get(1));
-
                             //int price=Integer.parseInt(value.get(1))*temp.getPrice();
                             editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                                 @Override
                                 public void onFocusChange(View view, boolean b) {
                                    quantity=Integer.parseInt(editText.getText().toString());
-                                    Log.d("TAG","Tag: "+quantity*temp.getPrice());
+                                    value.set(1,editText.getText().toString());
+
+                                    Log.d("TAG","Tagvalue: "+value.get(1));
                                    textViewPrice.setText(quantity*temp.getPrice()+" krr");
                                 }
                             });
