@@ -34,6 +34,7 @@ import java.util.Map;
 public class OrdersCustomerAdapter extends BaseAdapter {
     private Map<String, ArrayList<String>> mData = new HashMap<String, ArrayList<String>>();
     private String[] mKeys;
+    private int quantity;
 
     public OrdersCustomerAdapter(Map<String,ArrayList<String>>data) {
         mData=data;
@@ -74,35 +75,33 @@ public class OrdersCustomerAdapter extends BaseAdapter {
         final  EditText  editText=convertView.findViewById(R.id.editTextQuantity);
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference dbRef=firebaseDatabase.getReference();
-        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
        // textViewName.setText("qwd");
-        dbRef.child("Products").child(value.get(0)).addValueEventListener(new ValueEventListener() {
+        final View finalConvertView = convertView;
+        dbRef.child("Products").child(value.get(0)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                     Iterable<DataSnapshot>children=dataSnapshot.getChildren();
                     for (DataSnapshot child:children){
-                        Product temp=(child.getValue(Product.class));
+                        final Product temp=(child.getValue(Product.class));
                         if (temp.getID().equals(key)){
                          //   Log.d("Tag","TAG NAME"+ temp.getName());
+                            textViewPrice.setText(temp.getPrice()+" krr");
                             textViewName.setText(temp.getName());
                             Picasso.get().load(temp.getPictureUrl()).into(imageView);
                             editText.setText(value.get(1));
-                           new Thread(){
-                                @Override
-                                public void run(){
-                                    while (!isInterrupted()){
-                                        try{
-                                            Thread.sleep(1000); //1000ms=1 second
 
-                                        } catch (InterruptedException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
+                            //int price=Integer.parseInt(value.get(1))*temp.getPrice();
+                            editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                                @Override
+                                public void onFocusChange(View view, boolean b) {
+                                   quantity=Integer.parseInt(editText.getText().toString());
+                                    Log.d("TAG","Tag: "+quantity*temp.getPrice());
+                                   textViewPrice.setText(quantity*temp.getPrice()+" krr");
                                 }
-                            };
-                            textViewPrice.setText(temp.getPrice()*Integer.parseInt(editText.getText().toString())+" krr");
+                            });
                         }
                     }
+
             }
 
             @Override
