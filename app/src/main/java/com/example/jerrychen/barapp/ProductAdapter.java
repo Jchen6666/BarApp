@@ -117,7 +117,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                             myOrderList.add(quantity);
                             Map<String, ArrayList<String>> myOrderMap = new HashMap<>();
                             myOrderMap.put(product.getID(),myOrderList);
-                            Order myNewOrder=new Order(date,myOrderMap,Status.unpaid,price);
+                            Order myNewOrder=new Order(date,myOrderMap,Status.paid,price);
                             dbRef.child("users").child(uid).child("currentOrder").setValue(myNewOrder);
                             dbRef.child("orders").child(myNewOrder.getId()).setValue(myNewOrder);
                             etAmount.setText(null);

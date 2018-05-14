@@ -96,8 +96,8 @@ public class OrdersFragment extends Fragment {
                   if (dataSnapshot.child("currentOrder").exists()) {
                       myOrder = dataSnapshot.child("currentOrder").getValue(Order.class);
                       Log.d("Tag","TAG"+myOrder);
-                      OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap());
-                      listViewOrders.setAdapter(ordersCustomerAdapter);
+//                      OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap());
+//                      listViewOrders.setAdapter(ordersCustomerAdapter);
                   }
                   if (listViewOrders!=null){
                       updateListView(listViewOrders,myOrder.getOrderMap());
@@ -110,6 +110,11 @@ public class OrdersFragment extends Fragment {
               }
 
           });
+          if (myOrder!=null){
+              OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap());
+              listViewOrders.setAdapter(ordersCustomerAdapter);
+
+          }
 
 
       }

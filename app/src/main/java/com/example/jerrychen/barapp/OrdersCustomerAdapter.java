@@ -1,5 +1,6 @@
 package com.example.jerrychen.barapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -74,17 +75,32 @@ public class OrdersCustomerAdapter extends BaseAdapter {
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference dbRef=firebaseDatabase.getReference();
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-        dbRef.child("products").child(value.get(0)).addValueEventListener(new ValueEventListener() {
+       // textViewName.setText("qwd");
+        dbRef.child("Products").child(value.get(0)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                     Iterable<DataSnapshot>children=dataSnapshot.getChildren();
                     for (DataSnapshot child:children){
                         Product temp=(child.getValue(Product.class));
                         if (temp.getID().equals(key)){
-                            Log.d("Tag","TAG NAME"+ temp.getName());
+                         //   Log.d("Tag","TAG NAME"+ temp.getName());
                             textViewName.setText(temp.getName());
                             Picasso.get().load(temp.getPictureUrl()).into(imageView);
                             editText.setText(value.get(1));
+                           new Thread(){
+                                @Override
+                                public void run(){
+                                    while (!isInterrupted()){
+                                        try{
+                                            Thread.sleep(1000); //1000ms=1 second
+                                          
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            };
+                            textViewPrice.setText(temp.getPrice()*Integer.parseInt(editText.getText().toString())+" krr");
                         }
                     }
             }
@@ -96,4 +112,5 @@ public class OrdersCustomerAdapter extends BaseAdapter {
         });
         return convertView;
     }
+
 }
