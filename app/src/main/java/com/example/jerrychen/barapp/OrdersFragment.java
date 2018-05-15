@@ -106,7 +106,7 @@ public class OrdersFragment extends Fragment {
                       listViewOrders.setAdapter(ordersCustomerAdapter);
                   }
                   if (listViewOrders!=null&&myOrder.getOrderMap()!=null){
-                         updateListView(listViewOrders, myOrder.getOrderMap(), myOrder);
+                      updateListViewCustomer(listViewOrders, myOrder.getOrderMap(), myOrder);
                   }
                   if (myOrder==null){
                       Toast.makeText(getContext(),"no current order",Toast.LENGTH_LONG);
@@ -177,7 +177,7 @@ public class OrdersFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-    public void updateListView(ListView listView,Map<String,ArrayList<String>> CURRENT_ORDER,Order ORDER){
+    public void updateListViewCustomer(ListView listView,Map<String,ArrayList<String>> CURRENT_ORDER,Order ORDER){
         if(getContext()!=null) {
             OrdersCustomerAdapter productAdapter = new OrdersCustomerAdapter( CURRENT_ORDER,ORDER);
             listView.setAdapter(productAdapter);
