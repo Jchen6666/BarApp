@@ -127,7 +127,7 @@ public class OrdersFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     if (myOrder!=null) {
-                        Order finalOrder = new Order(new Date(), myOrder.getOrderMap(), Status.unpaid, myOrder.getPrice());
+                        Order finalOrder = new Order(new Date(), myOrder.getOrderMap(), Status.paid, myOrder.getPrice());
                         dbRef.child("users").child(user.getUid()).child("currentOrder").setValue(finalOrder);
 
                     }
