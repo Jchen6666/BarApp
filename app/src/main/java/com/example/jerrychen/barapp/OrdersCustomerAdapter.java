@@ -35,10 +35,14 @@ public class OrdersCustomerAdapter extends BaseAdapter {
     private Map<String, ArrayList<String>> mData = new HashMap<String, ArrayList<String>>();
     private String[] mKeys;
     private int quantity;
+    private int totalPrice;
+    private int singlePrice;
+    private Order myOrder;
 
-    public OrdersCustomerAdapter(Map<String,ArrayList<String>>data) {
+    public OrdersCustomerAdapter(Map<String,ArrayList<String>>data,Order order) {
         mData=data;
         mKeys = mData.keySet().toArray(new String[data.size()]);
+        myOrder=order;
     }
 
     @Override
@@ -77,6 +81,7 @@ public class OrdersCustomerAdapter extends BaseAdapter {
         DatabaseReference dbRef=firebaseDatabase.getReference();
        // textViewName.setText("qwd");
         final View finalConvertView = convertView;
+        totalPrice=myOrder.getPrice();
         dbRef.child("Products").child(value.get(0)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -85,22 +90,27 @@ public class OrdersCustomerAdapter extends BaseAdapter {
                         final Product temp=(child.getValue(Product.class));
                         if (temp.getID().equals(key)){
                          //   Log.d("Tag","TAG NAME"+ temp.getName());
-                            textViewPrice.setText(temp.getPrice()*Integer.parseInt(value.get(1))+" krr");
+                            quantity=Integer.parseInt(value.get(1));
+                            singlePrice=quantity*temp.getPrice();
+                            textViewPrice.setText(singlePrice+" krr");
                             textViewName.setText(temp.getName());
-
                             Picasso.get().load(temp.getPictureUrl()).into(imageView);
                             editText.setText(value.get(1));
-                            //int price=Integer.parseInt(value.get(1))*temp.getPrice();
                             editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                                 @Override
                                 public void onFocusChange(View view, boolean b) {
-                                   quantity=Integer.parseInt(editText.getText().toString());
+                                    quantity=Integer.parseInt(editText.getText().toString());
+                                    totalPrice=totalPrice-singlePrice+Integer.parseInt(editText.getText().toString())*temp.getPrice();
+                                    myOrder.setPrice(totalPrice);
                                     value.set(1,editText.getText().toString());
+                                    Log.d("TAG","Tagvalue: "+myOrder.getPrice());
+                                    singlePrice=quantity*temp.getPrice();
+                                    textViewPrice.setText(singlePrice+" krr");
 
-                                    Log.d("TAG","Tagvalue: "+value.get(1));
-                                   textViewPrice.setText(quantity*temp.getPrice()+" krr");
                                 }
                             });
+
+
                         }
                     }
 
