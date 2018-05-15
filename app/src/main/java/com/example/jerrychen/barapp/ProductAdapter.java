@@ -1,6 +1,7 @@
 package com.example.jerrychen.barapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Kangur on 12.04.2018.
@@ -77,9 +81,9 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                 dbRef.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.child("currentOrder").exists()){
+                        if (dataSnapshot.child("cart").exists()){
 
-                            myOrder=dataSnapshot.child("currentOrder").getValue(Order.class);
+                            myOrder=dataSnapshot.child("cart").getValue(Order.class);
                             if (myOrder.getOrderMap().containsKey(product.getID())){
                                 ArrayList<String> myOrderList=myOrder.getOrderMap().get(product.getID());
                                 int price=Integer.parseInt(quantity)*product.getPrice()+myOrder.getPrice();
@@ -111,7 +115,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                             myOrderList.add(quantity);
                             Map<String, ArrayList<String>> myOrderMap = new HashMap<>();
                             myOrderMap.put(product.getID(),myOrderList);
-                            Order myNewOrder=new Order(date,myOrderMap,Status.unpaid,price);
+                            Order myNewOrder=new Order(date,myOrderMap,price);
                             dbRef.child("users").child(uid).child("cart").setValue(myNewOrder);
                             etAmount.setText(null);
                         }

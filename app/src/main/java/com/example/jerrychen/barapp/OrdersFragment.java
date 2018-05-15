@@ -89,18 +89,22 @@ public class OrdersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_orders, container, false);
+            View view=inflater.inflate(R.layout.fragment_orders, container, false);
+
         CURRENT_ORDERS=new ArrayList<>();
         myOrder=new Order();
-        final Button orderButton=view.findViewById(R.id.buttonOrder);
-        FirebaseDatabase database=FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference=database.getReference();
+
+//        FirebaseDatabase database=FirebaseDatabase.getInstance();
+//        DatabaseReference databaseReference=database.getReference();
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
         final FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         final FirebaseUser user=firebaseAuth.getCurrentUser();
         final DatabaseReference dbRef=firebaseDatabase.getReference();
-        listViewOrders=view.findViewById(R.id.listViewOrders);
+
         if (LoginActivity.isStaff=="false") {
+            view=inflater.inflate(R.layout.fragment_orders_customer, container, false);
+            final Button orderButton=view.findViewById(R.id.buttonOrder);
+            listViewOrders=view.findViewById(R.id.listViewOrders);
             dbRef.child("users").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -131,11 +135,11 @@ public class OrdersFragment extends Fragment {
                 public void onClick(View view) {
                     if (myOrder!=null) {
                         dbRef.child("users").child(user.getUid()).child("cart").removeValue();
-                        Order finalOrder = new Order(new Date(), myOrder.getOrderMap(), Status.paid, myOrder.getPrice());
+                        Order finalOrder = new Order(new Date(), myOrder.getOrderMap(),myOrder.getPrice());
+                        finalOrder.setStatus(Status.paid);
                         dbRef.child("users").child(user.getUid()).child("currentOrder").child(myOrder.getId()).setValue(finalOrder);
 
                     }
-                    ((LinearLayout)view.getParent()).removeView(orderButton);
                 }
 
             });
@@ -145,7 +149,8 @@ public class OrdersFragment extends Fragment {
 
 
        else if (LoginActivity.isStaff=="true") {
-            databaseReference.child("orders").addValueEventListener(new ValueEventListener() {
+             view=inflater.inflate(R.layout.fragment_orders, container, false);
+            dbRef.child("orders").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Iterable<DataSnapshot> children = dataSnapshot.getChildren();

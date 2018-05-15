@@ -28,20 +28,24 @@
                 android:layout_height="64dp"
                 android:layout_weight="1"/>
         </LinearLayout>
-        <ListView
-            android:layout_below="@id/relativeLayout"
-            android:id="@+id/listViewOrders"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:descendantFocusability="blocksDescendants"
-            android:divider="@drawable/list_divider"
-            android:dividerHeight="2px">>
-        </ListView>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonOrder"
-            android:text="order"
-            tools:ignore="OnClick" />
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/listViewOrders"
+                android:layout_width="match_parent"
+                android:layout_height="502dp"
+                android:divider="@drawable/list_divider"
+                android:dividerHeight="2px"
+                ></ListView>
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/buttonOrder"-->
+            <!--android:text="order"-->
+            <!--tools:ignore="OnClick" />-->
+        </LinearLayout>
     </RelativeLayout>
 </FrameLayout>
