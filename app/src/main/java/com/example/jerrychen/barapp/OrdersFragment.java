@@ -1,6 +1,7 @@
 package com.example.jerrychen.barapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -22,9 +24,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -36,9 +41,6 @@ import java.util.Map;
  * create an instance of this fragment.
  */
 public class OrdersFragment extends Fragment {
-   private Order myOrder;
-   Map<String,ArrayList<String>> orderMap;
-   private ListView listViewOrders;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -47,9 +49,11 @@ public class OrdersFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private Order myOrder;
+    Map<String,ArrayList<String>> orderMap;
     private OnFragmentInteractionListener mListener;
-
+    private ListView listViewOrders;
+    private ArrayList<Order> CURRENT_ORDERS;
     public OrdersFragment() {
         // Required empty public constructor
     }
@@ -84,41 +88,44 @@ public class OrdersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        myOrder=new Order();
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_orders, container, false);
+        View view=inflater.inflate(R.layout.fragment_orders, container, false);
+        CURRENT_ORDERS=new ArrayList<>();
+        myOrder=new Order();
         final Button orderButton=view.findViewById(R.id.buttonOrder);
-
+        FirebaseDatabase database=FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference=database.getReference();
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
         final FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         final FirebaseUser user=firebaseAuth.getCurrentUser();
         final DatabaseReference dbRef=firebaseDatabase.getReference();
         listViewOrders=view.findViewById(R.id.listViewOrders);
         if (LoginActivity.isStaff=="false") {
-          dbRef.child("users").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-              @Override
-              public void onDataChange(DataSnapshot dataSnapshot) {
-                  myOrder=new Order();
-                  if (dataSnapshot.child("cart").exists()) {
-                      myOrder = dataSnapshot.child("cart").getValue(Order.class);
-                      Log.d("Tag","TAG"+myOrder);
-                      OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap(),myOrder);
-                      listViewOrders.setAdapter(ordersCustomerAdapter);
-                  }
-                  if (listViewOrders!=null&&myOrder.getOrderMap()!=null){
-                      updateListViewCustomer(listViewOrders, myOrder.getOrderMap(), myOrder);
-                  }
-                  if (myOrder==null){
-                      Toast.makeText(getContext(),"no current order",Toast.LENGTH_LONG);
-                  }
-              }
+            dbRef.child("users").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    myOrder=new Order();
+                    if (dataSnapshot.child("cart").exists()) {
+                        myOrder = dataSnapshot.child("cart").getValue(Order.class);
+                        Log.d("Tag","TAG"+myOrder);
+                        OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap(),myOrder);
+                        listViewOrders.setAdapter(ordersCustomerAdapter);
+                    }
+                    if (listViewOrders!=null&&myOrder.getOrderMap()!=null){
+                        updateListViewCustomer(listViewOrders, myOrder.getOrderMap(), myOrder);
+                    }
+                    if (myOrder==null){
+                        Toast.makeText(getContext(),"no current order",Toast.LENGTH_LONG);
 
-              @Override
-              public void onCancelled(DatabaseError databaseError) {
+                    }
+                }
 
-              }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-          });
+                }
+
+            });
             orderButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -134,8 +141,78 @@ public class OrdersFragment extends Fragment {
             });
 
 
-      }
+        }
 
+
+       else if (LoginActivity.isStaff=="true") {
+            databaseReference.child("orders").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                    CURRENT_ORDERS = new ArrayList<>();
+                    for (DataSnapshot child : children) {
+                        Order temp = child.getValue(Order.class);
+                        if (temp.getStatus() == Status.paid || temp.getStatus() == Status.started) {
+                            CURRENT_ORDERS.add(temp);
+                        }
+                    }
+                    Collections.sort(CURRENT_ORDERS, new Comparator<Order>() {
+                        @Override
+                        public int compare(Order order, Order t1) {
+                            return -order.getDate().compareTo(t1.getDate());
+                        }
+                    });
+                    if (listViewOrders != null) {
+                        updateListView(listViewOrders, CURRENT_ORDERS);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            //Set up a listView
+            listViewOrders = (ListView) view.findViewById(R.id.listViewOrders);
+            OrdersStaffAdapter productAdapter = new OrdersStaffAdapter(getContext(), CURRENT_ORDERS);
+            listViewOrders.setAdapter(productAdapter);
+
+            listViewOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent myIntent = new Intent(getContext(), OrderDetailActivity.class);
+                    myIntent.putExtra("Order", CURRENT_ORDERS.get(i));
+                    getContext().startActivity(myIntent);
+                }
+            });
+
+            new Timer().scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference databaseReference = database.getReference();
+                    for (int i = 0; i < CURRENT_ORDERS.size(); i++) {
+                        Order order = CURRENT_ORDERS.get(i);
+                        long timeElapsed = System.currentTimeMillis() - order.getDate().getTime();
+                        if (timeElapsed > 300000) {
+                            if (!order.getColor().equals("#ff6666")) {
+                                databaseReference.child("orders").child(order.getId()).child("color").setValue("#ff6666");
+                            }
+                        } else if (timeElapsed > 180000) {
+                            if (!order.getColor().equals("#ffff66")) {
+                                databaseReference.child("orders").child(order.getId()).child("color").setValue("#ffff66");
+                            }
+                        } else {
+                            if (!order.getColor().equals("#99ff99")) {
+                                databaseReference.child("orders").child(order.getId()).child("color").setValue("#99ff99");
+                            }
+                        }
+
+                    }
+                }
+            }, 0, 5000);
+        }
         return view;
     }
 
@@ -180,6 +257,12 @@ public class OrdersFragment extends Fragment {
     public void updateListViewCustomer(ListView listView,Map<String,ArrayList<String>> CURRENT_ORDER,Order ORDER){
         if(getContext()!=null) {
             OrdersCustomerAdapter productAdapter = new OrdersCustomerAdapter( CURRENT_ORDER,ORDER);
+            listView.setAdapter(productAdapter);
+        }
+    }
+    public void updateListView(ListView listView,ArrayList<Order> CURRENT_ORDERS){
+        if(getContext()!=null) {
+            OrdersStaffAdapter productAdapter = new OrdersStaffAdapter(getContext(), CURRENT_ORDERS);
             listView.setAdapter(productAdapter);
         }
     }

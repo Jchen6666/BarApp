@@ -1,5 +1,9 @@
 package com.example.jerrychen.barapp;
 
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -10,25 +14,15 @@ import java.util.Map;
  * Created by jerrychen on 5/2/18.
  */
 
-public class Order {
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
+public class Order implements Serializable{
     private Date date;
     private Map<String,ArrayList<String>> orderMap;
     private Status status;
-
-    public String getCode() {
-        return code;
-    }
-
-    private final String code;
-    public String getId() {
-        return id;
-    }
-
+    private String color;
     private final String id;
+    //4 digit code to verify transaction
+    private final String code;
+    private int price;
 
     public int getPrice() {
         return price;
@@ -38,26 +32,30 @@ public class Order {
         this.price = price;
     }
 
-    private int price;
+    public String getId() {
+        return id;
+    }
+
     public Order(){
         this.id=generateId();
         this.code=generateCode();
+        this.color="#7ED41B";
     }
 
-    public void setOrderMap(Map<String, ArrayList<String>> orderMap) {
-        this.orderMap = orderMap;
+    public String getCode() {
+        return code;
     }
 
-    public Order(Date date, Map orderMap, Status status, int price){
-     this.date=date;
-     this.orderMap=orderMap;
-     this.status=status;
-     this.id=generateId();
-     this.code=generateCode();
+    public Order(Date date, Map orderMap, int price){
+        this.date=date;
+        this.orderMap=orderMap;
+        setStatus(Status.unpaid);
+        this.id=generateId();
+        this.code=generateCode();
+        this.price=price;
+        this.color="#7ED41B";
 
-     this.price=price;
- }
-
+    }
 
     public Date getDate() {
         return date;
@@ -88,4 +86,13 @@ public class Order {
         }
         return String.valueOf(temp);
     }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
 }

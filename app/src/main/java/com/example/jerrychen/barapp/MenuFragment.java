@@ -1,8 +1,10 @@
 package com.example.jerrychen.barapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -98,6 +100,18 @@ public class MenuFragment extends Fragment implements CategoryFragment.OnFragmen
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+        //Floating action button
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Floating add button action
+                Intent myIntent = new Intent(getContext(), AddProductActivity.class);
+                if (getContext() != null) {
+                    getContext().startActivity(myIntent);
+                }
             }
         });
         return view;

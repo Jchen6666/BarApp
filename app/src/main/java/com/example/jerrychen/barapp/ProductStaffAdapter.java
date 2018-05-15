@@ -3,8 +3,6 @@ package com.example.jerrychen.barapp;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Kangur on 12.04.2018.
@@ -42,7 +38,7 @@ public class ProductStaffAdapter extends ArrayAdapter<Product> {
         }
         // Lookup view for data population
         ImageView ivPicture=(ImageView) convertView.findViewById(R.id.imageViewPhoto);
-        TextView tvName = (TextView) convertView.findViewById(R.id.textViewName);
+        TextView tvName = (TextView) convertView.findViewById(R.id.textViewNumber);
         ImageButton ibInfo=(ImageButton) convertView.findViewById(R.id.imageButtonInfo);
         ImageButton ibEdit=(ImageButton) convertView.findViewById(R.id.imageButtonEdit);
         ImageButton ibDelete=(ImageButton) convertView.findViewById(R.id.imageButtonDelete);

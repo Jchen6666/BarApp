@@ -19,7 +19,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
         <TextView
-            android:id="@+id/textViewName"
+            android:id="@+id/textViewNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -31,7 +31,7 @@
             android:id="@+id/editTextName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textViewName"
+            android:layout_alignBottom="@+id/textViewNumber"
             android:layout_marginStart="27dp"
             android:layout_toEndOf="@+id/textViewUrl"
             android:ems="10"
@@ -41,8 +41,8 @@
             android:id="@+id/textViewPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/textViewName"
-            android:layout_below="@+id/textViewName"
+            android:layout_alignStart="@+id/textViewNumber"
+            android:layout_below="@+id/textViewNumber"
             android:layout_marginTop="35dp"
             android:text="Price" />
 
