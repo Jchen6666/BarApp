@@ -97,75 +97,75 @@ public class OrdersFragment extends Fragment {
 //        databaseReference.child("orders").child(order.getId()).setValue(order);
 //        databaseReference.child("orders").child(order.getId()).child("status").setValue(Status.paid);
 
-
-        databaseReference.child("orders").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                CURRENT_ORDERS=new ArrayList<>();
-                for(DataSnapshot child:children){
-                    Order temp=child.getValue(Order.class);
-                    if(temp.getStatus()==Status.paid||temp.getStatus()==Status.started) {
-                        CURRENT_ORDERS.add(temp);
-                    }
-                }
-                Collections.sort(CURRENT_ORDERS, new Comparator<Order>() {
-                    @Override
-                    public int compare(Order order, Order t1) {
-                        return -order.getDate().compareTo(t1.getDate());
-                    }
-                });
-                if(listViewOrders!=null) {
-                    updateListView(listViewOrders, CURRENT_ORDERS);
+  if (LoginActivity.isStaff=="true") {
+    databaseReference.child("orders").addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+            CURRENT_ORDERS = new ArrayList<>();
+            for (DataSnapshot child : children) {
+                Order temp = child.getValue(Order.class);
+                if (temp.getStatus() == Status.paid || temp.getStatus() == Status.started) {
+                    CURRENT_ORDERS.add(temp);
                 }
             }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        //Set up a listView
-        listViewOrders=(ListView)view.findViewById(R.id.listViewOrders);
-        OrdersStaffAdapter productAdapter=new OrdersStaffAdapter(getContext(),CURRENT_ORDERS);
-        listViewOrders.setAdapter(productAdapter);
-
-        listViewOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent myIntent = new Intent(getContext(), OrderDetailActivity.class);
-                myIntent.putExtra("Order",CURRENT_ORDERS.get(i));
-                getContext().startActivity(myIntent);
-            }
-        });
-
-        new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                FirebaseDatabase database=FirebaseDatabase.getInstance();
-                DatabaseReference databaseReference=database.getReference();
-                for (int i = 0; i < CURRENT_ORDERS.size(); i++) {
-                    Order order=CURRENT_ORDERS.get(i);
-                    long timeElapsed = System.currentTimeMillis()- order.getDate().getTime();
-                    if (timeElapsed > 300000) {
-                        if(!order.getColor().equals("#ff6666")){
-                            databaseReference.child("orders").child(order.getId()).child("color").setValue("#ff6666");
-                        }
-                    }else if (timeElapsed > 180000) {
-                        if(!order.getColor().equals("#ffff66")){
-                            databaseReference.child("orders").child(order.getId()).child("color").setValue("#ffff66");
-                        }
-                    }else{
-                        if(!order.getColor().equals("#99ff99")){
-                            databaseReference.child("orders").child(order.getId()).child("color").setValue("#99ff99");
-                        }
-                    }
-
+            Collections.sort(CURRENT_ORDERS, new Comparator<Order>() {
+                @Override
+                public int compare(Order order, Order t1) {
+                    return -order.getDate().compareTo(t1.getDate());
                 }
+            });
+            if (listViewOrders != null) {
+                updateListView(listViewOrders, CURRENT_ORDERS);
             }
-        }, 0, 5000);
+        }
 
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    });
+
+    //Set up a listView
+    listViewOrders = (ListView) view.findViewById(R.id.listViewOrders);
+    OrdersStaffAdapter productAdapter = new OrdersStaffAdapter(getContext(), CURRENT_ORDERS);
+    listViewOrders.setAdapter(productAdapter);
+
+    listViewOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            Intent myIntent = new Intent(getContext(), OrderDetailActivity.class);
+            myIntent.putExtra("Order", CURRENT_ORDERS.get(i));
+            getContext().startActivity(myIntent);
+        }
+    });
+
+    new Timer().scheduleAtFixedRate(new TimerTask() {
+        @Override
+        public void run() {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = database.getReference();
+            for (int i = 0; i < CURRENT_ORDERS.size(); i++) {
+                Order order = CURRENT_ORDERS.get(i);
+                long timeElapsed = System.currentTimeMillis() - order.getDate().getTime();
+                if (timeElapsed > 300000) {
+                    if (!order.getColor().equals("#ff6666")) {
+                        databaseReference.child("orders").child(order.getId()).child("color").setValue("#ff6666");
+                    }
+                } else if (timeElapsed > 180000) {
+                    if (!order.getColor().equals("#ffff66")) {
+                        databaseReference.child("orders").child(order.getId()).child("color").setValue("#ffff66");
+                    }
+                } else {
+                    if (!order.getColor().equals("#99ff99")) {
+                        databaseReference.child("orders").child(order.getId()).child("color").setValue("#99ff99");
+                    }
+                }
+
+            }
+        }
+    }, 0, 5000);
+}
         return view;
     }
 
