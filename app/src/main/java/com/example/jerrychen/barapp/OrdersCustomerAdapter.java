@@ -109,17 +109,11 @@ public class OrdersCustomerAdapter extends BaseAdapter {
 
                                 }
                             });
-
-
                         }
                     }
-
             }
-
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         });
         return convertView;
     }

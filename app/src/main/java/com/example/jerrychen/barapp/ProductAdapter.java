@@ -93,8 +93,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                                 Log.d("Log_tag","AMOUNT: "+quantity);
                                 myOrder.getOrderMap().put(product.getID(),myOrderList);
                                 myOrder.setPrice(price);
-                                dbRef.child("users").child(uid).child("currentOrder").setValue(myOrder);
-                                dbRef.child("orders").child(myOrder.getId()).setValue(myOrder);
+                                dbRef.child("users").child(uid).child("cart").setValue(myOrder);
                             }
                             else {
                                 ArrayList<String>myOrderList=new ArrayList<>();
@@ -103,8 +102,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                                myOrderList.add(quantity);
                                myOrder.getOrderMap().put(product.getID(), myOrderList);
                                myOrder.setPrice(price);
-                               dbRef.child("users").child(uid).child("currentOrder").setValue(myOrder);
-                               dbRef.child("orders").child(myOrder.getId()).setValue(myOrder);
+                               dbRef.child("users").child(uid).child("cart").setValue(myOrder);
                             }
                             Log.d("Log_Tag"," created: "+repeated+" "+created);
 
@@ -117,9 +115,8 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                             myOrderList.add(quantity);
                             Map<String, ArrayList<String>> myOrderMap = new HashMap<>();
                             myOrderMap.put(product.getID(),myOrderList);
-                            Order myNewOrder=new Order(date,myOrderMap,Status.paid,price);
-                            dbRef.child("users").child(uid).child("currentOrder").setValue(myNewOrder);
-                            dbRef.child("orders").child(myNewOrder.getId()).setValue(myNewOrder);
+                            Order myNewOrder=new Order(date,myOrderMap,Status.unpaid,price);
+                            dbRef.child("users").child(uid).child("cart").setValue(myNewOrder);
                             etAmount.setText(null);
                         }
 

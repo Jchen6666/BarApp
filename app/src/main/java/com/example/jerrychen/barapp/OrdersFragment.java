@@ -84,6 +84,7 @@ public class OrdersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        myOrder=new Order();
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_orders, container, false);
         final Button orderButton=view.findViewById(R.id.buttonOrder);
@@ -98,13 +99,13 @@ public class OrdersFragment extends Fragment {
               @Override
               public void onDataChange(DataSnapshot dataSnapshot) {
                   myOrder=new Order();
-                  if (dataSnapshot.child("currentOrder").exists()) {
-                      myOrder = dataSnapshot.child("currentOrder").getValue(Order.class);
+                  if (dataSnapshot.child("cart").exists()) {
+                      myOrder = dataSnapshot.child("cart").getValue(Order.class);
                       Log.d("Tag","TAG"+myOrder);
-//                      OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap());
-//                      listViewOrders.setAdapter(ordersCustomerAdapter);
+                      OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap(),myOrder);
+                      listViewOrders.setAdapter(ordersCustomerAdapter);
                   }
-                  if (listViewOrders!=null&&myOrder!=null){
+                  if (listViewOrders!=null&&myOrder.getOrderMap()!=null){
                          updateListView(listViewOrders, myOrder.getOrderMap(), myOrder);
                   }
                   if (myOrder==null){
@@ -118,17 +119,13 @@ public class OrdersFragment extends Fragment {
               }
 
           });
-          if (myOrder!=null){
-              OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap(),myOrder);
-              listViewOrders.setAdapter(ordersCustomerAdapter);
-
-          }
             orderButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (myOrder!=null) {
+                        dbRef.child("users").child(user.getUid()).child("cart").removeValue();
                         Order finalOrder = new Order(new Date(), myOrder.getOrderMap(), Status.paid, myOrder.getPrice());
-                        dbRef.child("users").child(user.getUid()).child("currentOrder").setValue(finalOrder);
+                        dbRef.child("users").child(user.getUid()).child("currentOrder").child(myOrder.getId()).setValue(finalOrder);
 
                     }
                     ((LinearLayout)view.getParent()).removeView(orderButton);
