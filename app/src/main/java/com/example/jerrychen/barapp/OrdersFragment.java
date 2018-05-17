@@ -93,7 +93,6 @@ public class OrdersFragment extends Fragment {
             View view=inflater.inflate(R.layout.fragment_orders, container, false);
 
         CURRENT_ORDERS=new ArrayList<>();
-        myOrder=new Order();
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
         final FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         final FirebaseUser user=firebaseAuth.getCurrentUser();
@@ -105,7 +104,7 @@ public class OrdersFragment extends Fragment {
             final Button currentOrderButton=view.findViewById(R.id.navigation);
             listViewOrders=view.findViewById(R.id.listViewOrders);
             dbRef.child("users").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                ArrayList<String> currentOrders=new ArrayList<>();
+
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     myOrder=new Order();
@@ -119,8 +118,9 @@ public class OrdersFragment extends Fragment {
                     if (listViewOrders!=null&&myOrder.getOrderMap()!=null){
                         updateListViewCustomer(listViewOrders, myOrder.getOrderMap(), myOrder);
                     }
-                    if (myOrder==null){
+                    if (myOrder.getOrderMap()==null){
                         Toast.makeText(getContext(),"no current order",Toast.LENGTH_LONG);
+                        orderButton.setEnabled(false);
 
                     }
                 }
@@ -150,15 +150,16 @@ public class OrdersFragment extends Fragment {
             orderButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     if (myOrder!=null) {
                         dbRef.child("users").child(user.getUid()).child("cart").removeValue();
                         Order finalOrder = new Order(new Date(), myOrder.getOrderMap(),myOrder.getPrice());
                         finalOrder.setStatus(Status.paid);
-                       if (CURRENT_ORDERS!=null) {
-                           CURRENT_ORDERSID.add(myOrder.getId());
+                       if (CURRENT_ORDERSID!=null) {
+                           CURRENT_ORDERSID.add(finalOrder.getId());
                            dbRef.child("users").child(user.getUid()).child("currentOrder").setValue(CURRENT_ORDERSID);
                        }
-                        dbRef.child("orders").child(myOrder.getId()).setValue(finalOrder);
+                        dbRef.child("orders").child(finalOrder.getId()).setValue(finalOrder);
 
                     }
                 }
@@ -169,6 +170,7 @@ public class OrdersFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent myIntent=new Intent(getContext(),OrdersCustomerDetailActivity.class);
+                    myIntent.putExtra("CURRENT_ORDERS",CURRENT_ORDERSID);
                     getContext().startActivity(myIntent);
                 }
             });
@@ -185,6 +187,7 @@ public class OrdersFragment extends Fragment {
                     CURRENT_ORDERS = new ArrayList<>();
                     for (DataSnapshot child : children) {
                         Order temp = child.getValue(Order.class);
+                        Log.d("TAGID","ID: "+temp.getId());
                         if (temp.getStatus() == Status.paid || temp.getStatus() == Status.started) {
                             CURRENT_ORDERS.add(temp);
                         }
@@ -216,7 +219,10 @@ public class OrdersFragment extends Fragment {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent myIntent = new Intent(getContext(), OrderDetailActivity.class);
                     myIntent.putExtra("Order", CURRENT_ORDERS.get(i));
-                    Log.d("CurrentOrder","CurrentOrderID: "+CURRENT_ORDERS.get(i).getId());
+                    //Log.d("CurrentOrder","CurrentOrderID: "+CURRENT_ORDERS.get(i).getId());
+//                    for (int X=0;X<CURRENT_ORDERS.size();X++){
+//                        Log.d("IDTAG","ORDERID "+CURRENT_ORDERS.get(X).getId());
+//                    }
                     getContext().startActivity(myIntent);
                 }
             });

@@ -58,7 +58,6 @@ public class OrdersCustomerDetailActivity extends AppCompatActivity {
         listView.setAdapter(ordersCustomerDetailAdapter);
 
 
-
-
     }
+
 }
