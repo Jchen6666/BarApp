@@ -3,6 +3,7 @@ package com.example.jerrychen.barapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,8 @@ public class OrderDetailActivity extends AppCompatActivity {
         android.support.v7.app.ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         final Order order = (Order) getIntent().getSerializableExtra("Order");
+        Log.d("CurrentOrder","CurrentOrderID: "+order.getId());
+
         TextView tvCode=(TextView)findViewById(R.id.textViewOrderCode);
         final TextView tvStatus=(TextView)findViewById(R.id.textViewOrderStatus);
         String code="Order #"+order.getCode();
