@@ -78,6 +78,7 @@
         android:background="@drawable/rounded_white_rect"
         android:drawablePadding="5dp"
         android:layout_marginEnd="50dp"
+        android:layout_marginBottom="10dp"
         android:hint="Email"
         android:paddingStart="10dp" />
     <AutoCompleteTextView

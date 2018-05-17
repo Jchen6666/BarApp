@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textViewPrice"
             android:layout_below="@+id/textViewPrice"
-            android:layout_marginTop="54dp"
+            android:layout_marginTop="35dp"
             android:text="Volume" />
 
         <EditText
@@ -87,6 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textViewDescription"
             android:layout_alignStart="@+id/editTextVolume"
+            android:lines="2"
             android:ems="10"
             android:inputType="textMultiLine" />
 

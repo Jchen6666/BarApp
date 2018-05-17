@@ -48,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
                 firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         Exception exception=task.getException();
                         if (exception instanceof FirebaseAuthUserCollisionException){
                             Toast.makeText(RegisterActivity.this,"email already being used",Toast.LENGTH_LONG).show();

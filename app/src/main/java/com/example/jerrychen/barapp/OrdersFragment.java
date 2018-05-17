@@ -54,6 +54,7 @@ public class OrdersFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private ListView listViewOrders;
     private ArrayList<Order> CURRENT_ORDERS;
+    ArrayList<String> CURRENT_ORDERSID;
     public OrdersFragment() {
         // Required empty public constructor
     }
@@ -93,9 +94,6 @@ public class OrdersFragment extends Fragment {
 
         CURRENT_ORDERS=new ArrayList<>();
         myOrder=new Order();
-
-//        FirebaseDatabase database=FirebaseDatabase.getInstance();
-//        DatabaseReference databaseReference=database.getReference();
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
         final FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         final FirebaseUser user=firebaseAuth.getCurrentUser();
@@ -104,11 +102,14 @@ public class OrdersFragment extends Fragment {
         if (LoginActivity.isStaff=="false") {
             view=inflater.inflate(R.layout.fragment_orders_customer, container, false);
             final Button orderButton=view.findViewById(R.id.buttonOrder);
+            final Button currentOrderButton=view.findViewById(R.id.navigation);
             listViewOrders=view.findViewById(R.id.listViewOrders);
             dbRef.child("users").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                ArrayList<String> currentOrders=new ArrayList<>();
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     myOrder=new Order();
+
                     if (dataSnapshot.child("cart").exists()) {
                         myOrder = dataSnapshot.child("cart").getValue(Order.class);
                         Log.d("Tag","TAG"+myOrder);
@@ -130,6 +131,22 @@ public class OrdersFragment extends Fragment {
                 }
 
             });
+            CURRENT_ORDERSID=new ArrayList<>();
+            dbRef.child("users").child(user.getUid()).child("currentOrder").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Iterable<DataSnapshot>children=dataSnapshot.getChildren();
+                    for (DataSnapshot child:children){
+                        String id=child.getValue(String.class);
+                        CURRENT_ORDERSID.add(id);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
             orderButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -137,13 +154,24 @@ public class OrdersFragment extends Fragment {
                         dbRef.child("users").child(user.getUid()).child("cart").removeValue();
                         Order finalOrder = new Order(new Date(), myOrder.getOrderMap(),myOrder.getPrice());
                         finalOrder.setStatus(Status.paid);
-                        dbRef.child("users").child(user.getUid()).child("currentOrder").child(myOrder.getId()).setValue(finalOrder);
+                       if (CURRENT_ORDERS!=null) {
+                           CURRENT_ORDERSID.add(myOrder.getId());
+                           dbRef.child("users").child(user.getUid()).child("currentOrder").setValue(CURRENT_ORDERSID);
+                       }
+                        dbRef.child("orders").child(myOrder.getId()).setValue(finalOrder);
 
                     }
                 }
 
             });
 
+            currentOrderButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent myIntent=new Intent(getContext(),OrdersCustomerDetailActivity.class);
+                    getContext().startActivity(myIntent);
+                }
+            });
 
         }
 

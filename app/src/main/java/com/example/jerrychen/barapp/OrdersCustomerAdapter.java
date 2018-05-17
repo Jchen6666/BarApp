@@ -80,7 +80,6 @@ public class OrdersCustomerAdapter extends BaseAdapter {
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference dbRef=firebaseDatabase.getReference();
        // textViewName.setText("qwd");
-        final View finalConvertView = convertView;
         totalPrice=myOrder.getPrice();
         dbRef.child("Products").child(value.get(0)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

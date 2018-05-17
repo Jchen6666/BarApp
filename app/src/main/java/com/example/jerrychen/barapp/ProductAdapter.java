@@ -1,6 +1,7 @@
 package com.example.jerrychen.barapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +57,9 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         TextView tvPrice = (TextView) convertView.findViewById(R.id.textViewPrice);
         final EditText etAmount=convertView.findViewById(R.id.editTextAmount);
         Button buttonOrder=convertView.findViewById(R.id.buttonOrder);
+        ImageButton ibInfo=(ImageButton) convertView.findViewById(R.id.imageButtonInfo);
+
+
         // Populate the data into the template view using the data object
         tvName.setText(product.getName());
         tvPrice.setText(product.getPrice()+"DKK");
@@ -63,6 +68,14 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         }catch(IllegalArgumentException e){
             e.printStackTrace();
         }
+        ibInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getContext(), ItemDetailsActivity.class);
+                myIntent.putExtra("Product",product);
+                getContext().startActivity(myIntent);
+            }
+        });
 
         buttonOrder.setOnClickListener(new View.OnClickListener() {
 

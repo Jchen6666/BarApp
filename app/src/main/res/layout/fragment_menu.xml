@@ -8,30 +8,39 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <android.support.design.widget.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tablayout"
-        android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        >
-    </android.support.design.widget.TabLayout>
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="end|bottom"
-            android:src="@drawable/ic_add_black_24dp"
-            android:layout_margin="16dp"/>
+            android:id="@+id/tablayout"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            >
+        </android.support.design.widget.TabLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="400dp"
+            android:id="@+id/filler">
 
-    <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/pager"
-        android:layout_below="@+id/tablayout"
-        >
-    </android.support.v4.view.ViewPager>
+        </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+
+            android:layout_below="@id/filler"
+            android:id="@+id/fab"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_add_black_24dp"
+            android:layout_margin="16dp"
+            />
+
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/pager"
+            android:layout_below="@+id/tablayout"
+            >
+        </android.support.v4.view.ViewPager>
     </RelativeLayout>
 </FrameLayout>

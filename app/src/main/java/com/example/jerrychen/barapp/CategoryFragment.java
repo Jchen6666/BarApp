@@ -1,12 +1,14 @@
 package com.example.jerrychen.barapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -111,6 +113,14 @@ public class CategoryFragment extends Fragment {
             listViewProducts=(ListView)v.findViewById(R.id.listViewProducts);
             ProductAdapter productAdapter=new ProductAdapter(getContext(),PRODUCTS);
             listViewProducts.setAdapter(productAdapter);
+//            listViewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                    Intent intent=new Intent(getContext(),ItemDetailsActivity.class);
+//                    intent.putExtra("Product",PRODUCTS.get(i));
+//                    startActivity(intent);
+//                }
+//            });
             return v;
         }
 
