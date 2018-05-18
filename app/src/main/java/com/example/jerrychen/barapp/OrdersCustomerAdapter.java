@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -77,8 +79,11 @@ public class OrdersCustomerAdapter extends BaseAdapter {
         final  TextView  textViewName=convertView.findViewById(R.id.textViewName);
         final  TextView  textViewPrice=convertView.findViewById(R.id.textViewPrice);
         final  EditText  editText=convertView.findViewById(R.id.editTextQuantity);
+        final  Button    buttonDelete=convertView.findViewById(R.id.buttonDelete);
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
-        DatabaseReference dbRef=firebaseDatabase.getReference();
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        final  FirebaseUser user=firebaseAuth.getCurrentUser();
+        final DatabaseReference dbRef=firebaseDatabase.getReference();
        // textViewName.setText("qwd");
         totalPrice=myOrder.getPrice();
         dbRef.child("Products").child(value.get(0)).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -113,6 +118,25 @@ public class OrdersCustomerAdapter extends BaseAdapter {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) { }
+        });
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dbRef.child("users").child(user.getUid()).child("cart").child("orderMap").child(key).removeValue();
+                dbRef.child("users").child(user.getUid()).child("cart").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.child("orderMap").exists()==false){
+                            dbRef.child("users").child(user.getUid()).child("cart").removeValue();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
         });
         return convertView;
     }

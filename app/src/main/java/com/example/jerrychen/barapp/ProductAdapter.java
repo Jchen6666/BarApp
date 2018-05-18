@@ -56,7 +56,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         TextView tvName = (TextView) convertView.findViewById(R.id.textViewNumber);
         TextView tvPrice = (TextView) convertView.findViewById(R.id.textViewPrice);
         final EditText etAmount=convertView.findViewById(R.id.editTextAmount);
-        Button buttonOrder=convertView.findViewById(R.id.buttonOrder);
+        final Button buttonOrder=convertView.findViewById(R.id.buttonOrder);
         ImageButton ibInfo=(ImageButton) convertView.findViewById(R.id.imageButtonInfo);
 
 
@@ -76,7 +76,22 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                 getContext().startActivity(myIntent);
             }
         });
+        if (etAmount.getText().toString().isEmpty()){
+            buttonOrder.setEnabled(false);
+        }
 
+        if (etAmount.getText().toString().isEmpty()){
+            buttonOrder.setEnabled(false);
+        }
+        etAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (etAmount.getText().toString().isEmpty()){
+                    buttonOrder.setEnabled(false);
+                }else buttonOrder.setEnabled(true);
+
+            }
+        });
         buttonOrder.setOnClickListener(new View.OnClickListener() {
 
 
