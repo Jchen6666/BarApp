@@ -29,6 +29,7 @@ public class OrdersCustomerDetailAdapter extends ArrayAdapter<String> {
    private Order myOrder;
    private FirebaseUser user;
    private List<String> CURRENT_ORDERSID;
+   private ArrayList<String> HISTORY_ORDERSID;
     public OrdersCustomerDetailAdapter(@NonNull Context context, @NonNull List<String> orderId) {
         super(context, 0, orderId);
         CURRENT_ORDERSID=orderId;
@@ -39,7 +40,7 @@ public class OrdersCustomerDetailAdapter extends ArrayAdapter<String> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         // Get the data item for this position
         final String orderId = getItem(position);
-
+       // HISTORY_ORDERSID=new ArrayList<>();
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.customer_order_list_item, parent, false);
@@ -54,10 +55,18 @@ public class OrdersCustomerDetailAdapter extends ArrayAdapter<String> {
          user=firebaseAuth.getCurrentUser();
          confirmButton.setEnabled(false);
         final DatabaseReference dbRef=firebaseDatabase.getReference();
-        dbRef.child("orders").child(orderId).addValueEventListener(new ValueEventListener() {
+        dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                myOrder=dataSnapshot.getValue(Order.class);
+                myOrder=dataSnapshot.child("orders").child(orderId).getValue(Order.class);
+                if (dataSnapshot.child("users").child(user.getUid()).child("historyOrder").exists()) {
+                    HISTORY_ORDERSID = new ArrayList<>();
+                    Iterable<DataSnapshot> children = dataSnapshot.child("users").child(user.getUid()).child("historyOrder").getChildren();
+                    for (DataSnapshot child : children) {
+                        String id = child.getValue(String.class);
+                        HISTORY_ORDERSID.add(id);
+                    }
+                }
                 if (myOrder!=null) {
                     if (myOrder.getStatus() == Status.started || myOrder.getStatus() == Status.paid) {
                         ProductOrderAdapter productOrderAdapter = new ProductOrderAdapter(myOrder.getOrderMap());
@@ -80,8 +89,10 @@ public class OrdersCustomerDetailAdapter extends ArrayAdapter<String> {
 
                               if (CURRENT_ORDERSID!=null) {
                                   CURRENT_ORDERSID.remove(orderId);
+                                  HISTORY_ORDERSID.add(orderId);
                                   Log.d("TAG","TAG: "+CURRENT_ORDERSID);
                                   dbRef.child("users").child(user.getUid()).child("currentOrder").setValue(CURRENT_ORDERSID);
+                                  dbRef.child("users").child(user.getUid()).child("historyOrder").setValue(HISTORY_ORDERSID);
                               }
                             }
                         });
