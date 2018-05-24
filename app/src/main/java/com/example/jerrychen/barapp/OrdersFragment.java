@@ -227,31 +227,32 @@ public class OrdersFragment extends Fragment {
                 }
             });
 
-//            new Timer().scheduleAtFixedRate(new TimerTask() {
-//                @Override
-//                public void run() {
-//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                    DatabaseReference databaseReference = database.getReference();
-//                    for (int i = 0; i < CURRENT_ORDERS.size(); i++) {
-//                        Order order = CURRENT_ORDERS.get(i);
-//                        long timeElapsed = System.currentTimeMillis() - order.getDate().getTime();
-//                        if (timeElapsed > 300000) {
-//                            if (!order.getColor().equals("#ff6666")) {
-//                                databaseReference.child("orders").child(order.getId()).child("color").setValue("#ff6666");
-//                            }
-//                        } else if (timeElapsed > 180000) {
-//                            if (!order.getColor().equals("#ffff66")) {
-//                                databaseReference.child("orders").child(order.getId()).child("color").setValue("#ffff66");
-//                            }
-//                        } else {
-//                            if (!order.getColor().equals("#99ff99")) {
-//                                databaseReference.child("orders").child(order.getId()).child("color").setValue("#99ff99");
-//                            }
-//                        }
-//
-//                    }
-//                }
-//            }, 0, 5000);
+            new Timer().scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference databaseReference = database.getReference();
+                      Order order;
+                    for (int i = 0; i < CURRENT_ORDERS.size(); i++) {
+                        order = CURRENT_ORDERS.get(i);
+                        long timeElapsed = System.currentTimeMillis() - order.getDate().getTime();
+                        if (timeElapsed > 300000) {
+                            if (!order.getColor().equals("#ff6666")) {
+                                databaseReference.child("orders").child(order.getId()).child("color").setValue("#ff6666");
+                            }
+                        } else if (timeElapsed > 180000) {
+                            if (!order.getColor().equals("#ffff66")) {
+                                databaseReference.child("orders").child(order.getId()).child("color").setValue("#ffff66");
+                            }
+                        } else {
+                            if (!order.getColor().equals("#99ff99")) {
+                                databaseReference.child("orders").child(order.getId()).child("color").setValue("#99ff99");
+                            }
+                        }
+
+                    }
+                }
+            }, 0, 5000);
         }
         return view;
     }
