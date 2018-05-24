@@ -39,7 +39,7 @@ public class Order implements Serializable{
     public Order(){
         this.id=generateId();
         this.code=generateCode();
-        this.color="#7ED41B";
+        this.color="#99ff99";
     }
 
     public String getCode() {
@@ -53,7 +53,7 @@ public class Order implements Serializable{
         this.id=generateId();
         this.code=generateCode();
         this.price=price;
-        this.color="#7ED41B";
+        this.color="#99ff99";
 
     }
 
