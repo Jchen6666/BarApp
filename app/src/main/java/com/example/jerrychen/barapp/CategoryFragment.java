@@ -83,7 +83,8 @@ public class CategoryFragment extends Fragment {
         PRODUCTS=new ArrayList<>();
         FirebaseDatabase database=FirebaseDatabase.getInstance();
         DatabaseReference databaseReference=database.getReference();
-        databaseReference.child("Products").child(this.getArguments().getString("category")).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Products").child(this.getArguments().getString("category"))
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
