@@ -27,14 +27,6 @@ public class StaffInterfaceActivity extends AppCompatActivity implements Setting
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_interface);
-        Intent intent=getIntent();
-        String isStaff=intent.getStringExtra("isStaff");
-        if (isStaff=="true") {
-            Staff user = (Staff) intent.getSerializableExtra("user");
-        }else if (isStaff=="false"){
-            Customer user = (Customer) intent.getSerializableExtra("user");
-        }
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();

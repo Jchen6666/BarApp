@@ -2,6 +2,7 @@ package com.example.jerrychen.barapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +37,7 @@ public class OrdersCustomerDetailActivity extends AppCompatActivity {
                 for (DataSnapshot child:children){
                     String id=child.getValue(String.class);
                     CURRENT_ORDERSID.add(id);
+                    Log.d("TAG","TAG ID:"+ id);
                 }
                 if (listView!=null){
                     updateListView(listView,CURRENT_ORDERSID);
@@ -48,6 +50,7 @@ public class OrdersCustomerDetailActivity extends AppCompatActivity {
             }
         });
         if (listView!=null&&CURRENT_ORDERSID!=null) {
+
             OrdersCustomerDetailAdapter ordersCustomerDetailAdapter = new OrdersCustomerDetailAdapter(OrdersCustomerDetailActivity.this, CURRENT_ORDERSID);
              listView.setAdapter(ordersCustomerDetailAdapter);
         }

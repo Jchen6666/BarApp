@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     AutoCompleteTextView editTextEmail,editTextPassword;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
+    DatabaseReference dbRef;
     protected static String isStaff;
     private ConnectionDetector cd;
     //SharedPreferences sharedPreferences;
@@ -38,9 +39,28 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         firebaseAuth=FirebaseAuth.getInstance();
+        FirebaseUser user=firebaseAuth.getCurrentUser();
+        firebaseDatabase=FirebaseDatabase.getInstance();
+         dbRef = firebaseDatabase.getReference();
         editTextEmail=(AutoCompleteTextView)findViewById(R.id.userEmail);
         editTextPassword=(AutoCompleteTextView)findViewById(R.id.userPassword);
         firebaseDatabase=FirebaseDatabase.getInstance();
+        if (user!=null){
+            Intent intent = new Intent(LoginActivity.this, StaffInterfaceActivity.class);
+            dbRef.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Map<String, String> map = (Map<String, String>) dataSnapshot.getValue();
+                    isStaff = String.valueOf(map.get("staff"));
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            startActivity(intent);
+        }
         cd=new ConnectionDetector(this);
     }
 
@@ -55,12 +75,8 @@ public class LoginActivity extends AppCompatActivity {
                        public void onComplete(@NonNull Task<AuthResult> task) {
                            if (task.isSuccessful()) {
                                FirebaseUser user = firebaseAuth.getCurrentUser();
-                               //   Toast.makeText(LoginActivity.this,"Login Successfully",Toast.LENGTH_LONG).show();
-                               DatabaseReference dbRef = firebaseDatabase.getReference();
                                dbRef.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
                                    Intent intent = new Intent(LoginActivity.this, StaffInterfaceActivity.class);
-
-                                   //   Intent intent=new Intent(LoginActivity.this,CartActivity.class);
                                    @Override
                                    public void onDataChange(DataSnapshot dataSnapshot) {
                                        Map<String, String> map = (Map<String, String>) dataSnapshot.getValue();
@@ -72,9 +88,6 @@ public class LoginActivity extends AppCompatActivity {
                                            intent.putExtra("user", staff);
                                        } else if (isStaff == "false") {
                                            Toast.makeText(LoginActivity.this, "Customer Login Successfully", Toast.LENGTH_LONG).show();
-                                           Customer customer = dataSnapshot.getValue(Customer.class);
-                                           intent.putExtra("isStaff", isStaff);
-                                           intent.putExtra("user", customer);
                                        }
                                        startActivity(intent);
                                    }
