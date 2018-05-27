@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -35,6 +36,8 @@ public class AddProductActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         //Initializing all Views
         etName=(EditText)findViewById(R.id.editTextName);
         etPrice=(EditText)findViewById(R.id.editTextPrice);

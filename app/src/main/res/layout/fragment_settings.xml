@@ -1,13 +1,99 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.jerrychen.barapp.SettingsFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/title_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is where the settings fragment is supposed to be." />
+        android:layout_height="50sp"
+        android:text="Settings"
+        android:textSize="30sp"
+        android:textColor="#111111"
+        />
 
-</FrameLayout>
+
+    <Button
+        android:textColor="#111111"
+        android:layout_below="@+id/title_text"
+        android:id="@+id/Test1"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Drunk mode"
+        android:drawableEnd="@drawable/baseline_arrow_forward_ios_black_18dp"
+        android:background="#e5e6eb"
+
+        />
+    <Button
+        android:textColor="#111111"
+        android:layout_marginTop="5dp"
+        android:gravity="left"
+        android:id="@+id/Test2"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Account Settings"
+        android:layout_below="@+id/Test1"
+        android:drawableEnd="@drawable/baseline_arrow_forward_ios_black_18dp"
+        android:background="#e5e6eb"
+        />
+    <Button
+        android:textColor="#111111"
+        android:layout_marginTop="5dp"
+        android:gravity="left"
+        android:id="@+id/Test3"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Push Notification"
+        android:layout_below="@+id/Test2"
+        android:drawableEnd="@drawable/baseline_arrow_forward_ios_black_18dp"
+        android:background="#e5e6eb"
+        />
+    <Button
+        android:textColor="#111111"
+        android:layout_marginTop="5dp"
+        android:gravity="left"
+        android:id="@+id/Test4"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Privacy"
+        android:drawableEnd="@drawable/baseline_arrow_forward_ios_black_18dp"
+        android:layout_below="@+id/Test3"
+        android:background="#e5e6eb"
+        />
+    <Button
+        android:textColor="#fff"
+        android:layout_marginTop="5dp"
+        android:gravity="left"
+        android:id="@+id/Test5"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log Off"
+        android:layout_below="@+id/Test4"
+        android:drawableEnd="@drawable/baseline_arrow_forward_ios_white_18dp"
+        android:background="#000051"
+        />
+
+</RelativeLayout>
