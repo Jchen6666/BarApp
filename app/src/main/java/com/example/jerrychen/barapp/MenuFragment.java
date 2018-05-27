@@ -105,16 +105,21 @@ public class MenuFragment extends Fragment implements CategoryFragment.OnFragmen
         });
         //Floating action button
         FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Floating add button action
-                Intent myIntent = new Intent(getContext(), AddProductActivity.class);
-                if (getContext() != null) {
-                    getContext().startActivity(myIntent);
+
+        if(LoginActivity.isStaff!=null&&LoginActivity.isStaff.equals("true")) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Floating add button action
+                    Intent myIntent = new Intent(getContext(), AddProductActivity.class);
+                    if (getContext() != null) {
+                        getContext().startActivity(myIntent);
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            fab.setVisibility(View.INVISIBLE);
+        }
         return view;
     }
 
