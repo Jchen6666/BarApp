@@ -103,7 +103,7 @@ public class OrdersFragment extends Fragment {
             final Button orderButton=view.findViewById(R.id.buttonOrder);
             final Button currentOrderButton=view.findViewById(R.id.navigation);
             listViewOrders=view.findViewById(R.id.listViewOrders);
-            dbRef.child("users").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            dbRef.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
 
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -111,15 +111,18 @@ public class OrdersFragment extends Fragment {
 
                     if (dataSnapshot.child("cart").exists()) {
                         myOrder = dataSnapshot.child("cart").getValue(Order.class);
-                        Log.d("Tag","TAG"+myOrder);
-                        OrdersCustomerAdapter ordersCustomerAdapter=new OrdersCustomerAdapter(myOrder.getOrderMap(),myOrder);
-                        listViewOrders.setAdapter(ordersCustomerAdapter);
+                        Log.d("Tag", "TAG" + myOrder);
+                        if (myOrder.getOrderMap() != null) {
+                            OrdersCustomerAdapter ordersCustomerAdapter = new OrdersCustomerAdapter(myOrder.getOrderMap(), myOrder);
+                            listViewOrders.setAdapter(ordersCustomerAdapter);
+                        }
+
+                        if (listViewOrders != null && myOrder.getOrderMap() != null) {
+                            updateListViewCustomer(listViewOrders, myOrder.getOrderMap(), myOrder);
+                        }
                     }
-                    if (listViewOrders!=null&&myOrder.getOrderMap()!=null){
-                        updateListViewCustomer(listViewOrders, myOrder.getOrderMap(), myOrder);
-                    }
-                    if (myOrder.getOrderMap()==null){
-                        Toast.makeText(getContext(),"no current order",Toast.LENGTH_LONG);
+                    else{
+                       // Toast.makeText(getContext(),"no current order",Toast.LENGTH_LONG);
                         orderButton.setEnabled(false);
 
                     }

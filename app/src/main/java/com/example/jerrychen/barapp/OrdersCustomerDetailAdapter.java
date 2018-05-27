@@ -1,6 +1,7 @@
 package com.example.jerrychen.barapp;
 
 import android.content.Context;
+import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -59,12 +60,14 @@ public class OrdersCustomerDetailAdapter extends ArrayAdapter<String> {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 myOrder=dataSnapshot.child("orders").child(orderId).getValue(Order.class);
+                Toast.makeText(getContext(),"orderMap "+myOrder.getOrderMap(),Toast.LENGTH_LONG).show();
                 if (dataSnapshot.child("users").child(user.getUid()).child("historyOrder").exists()) {
                     HISTORY_ORDERSID = new ArrayList<>();
                     Iterable<DataSnapshot> children = dataSnapshot.child("users").child(user.getUid()).child("historyOrder").getChildren();
                     for (DataSnapshot child : children) {
                         String id = child.getValue(String.class);
                         HISTORY_ORDERSID.add(id);
+
                     }
                 }
                 if (myOrder!=null) {
