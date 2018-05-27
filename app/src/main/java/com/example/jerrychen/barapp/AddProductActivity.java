@@ -1,6 +1,5 @@
 package com.example.jerrychen.barapp;
 
-import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -27,11 +26,12 @@ public class AddProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
 
+        //Setting up a toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-
+        //Initializing all Views
         etName=(EditText)findViewById(R.id.editTextName);
         etPrice=(EditText)findViewById(R.id.editTextPrice);
         etVolume=(EditText)findViewById(R.id.editTextVolume);
@@ -43,6 +43,7 @@ public class AddProductActivity extends AppCompatActivity {
         bAdd=(Button)findViewById(R.id.buttonAdd);
         mDatabaseReference= FirebaseDatabase.getInstance().getReference();
 
+        //Handling the add button interaction
         bAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,9 +56,11 @@ public class AddProductActivity extends AppCompatActivity {
                     String URL=etURL.getText().toString();
                     boolean availability=cAvailability.isChecked();
                     ProductCategory category=(ProductCategory)sCategory.getItemAtPosition(sCategory.getSelectedItemPosition());
+                    //Initializing a new product with entered data
                     Product product=new Product(URL,name,price,volume,description,category,availability);
                     mDatabaseReference.child("Products").child(product.getCategory().toString()).child(product.getID()).setValue(product);
                     Toast.makeText(AddProductActivity.this,"Product successfully added to the menu",Toast.LENGTH_LONG).show();
+                    //Resetting fields for another product
                     etName.setText("");
                     etPrice.setText("");
                     etVolume.setText("");

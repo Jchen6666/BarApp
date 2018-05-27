@@ -1,10 +1,6 @@
 package com.example.jerrychen.barapp;
 
-import android.provider.Settings;
-import android.support.annotation.NonNull;
-
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;

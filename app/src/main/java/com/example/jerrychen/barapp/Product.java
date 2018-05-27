@@ -1,7 +1,5 @@
 package com.example.jerrychen.barapp;
 
-import android.media.Image;
-
 import java.io.Serializable;
 import java.security.SecureRandom;
 

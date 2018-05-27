@@ -30,7 +30,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         tvVolume = (TextView) findViewById(R.id.textViewDetailVolume);
         tvAvailability = (TextView) findViewById(R.id.textViewDetailAvailability);
         ivPicture=(ImageView)findViewById(R.id.imageViewDetailPicture);
-
+        //Receive a product from a previous activity
         if (getIntent().getSerializableExtra("Product") != null) {
             Product product = (Product) getIntent().getSerializableExtra("Product");
             tvName.setText(product.getName());

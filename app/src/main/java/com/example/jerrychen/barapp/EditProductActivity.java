@@ -26,12 +26,12 @@ public class EditProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-
+        //Setting a toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-
+        //Declaring views references
         ID=null;
         etName=(EditText)findViewById(R.id.editTextName);
         etPrice=(EditText)findViewById(R.id.editTextPrice);
@@ -43,7 +43,7 @@ public class EditProductActivity extends AppCompatActivity {
         cAvailability=(CheckBox)findViewById(R.id.checkBoxAvailable);
         bAdd=(Button)findViewById(R.id.buttonAdd);
         bAdd.setText("Save");
-
+        //Receive product from a previous activity through an Intent
         if(getIntent().getSerializableExtra("Product")!=null) {
             Product product = (Product) getIntent().getSerializableExtra("Product");
             etName.setText(product.getName());
@@ -63,7 +63,7 @@ public class EditProductActivity extends AppCompatActivity {
             sCategory.setSelection(index);
         }
         mDatabaseReference= FirebaseDatabase.getInstance().getReference();
-
+        //Set the save button's interaction
         bAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,6 +79,7 @@ public class EditProductActivity extends AppCompatActivity {
                     Product product=new Product(URL,name,price,volume,description,category,availability);
                     if(ID!=null){
                         product.setID(ID);}
+                    //Save to the database
                     mDatabaseReference.child("Products").child(product.getCategory().toString()).child(product.getID()).setValue(product);
                     Toast.makeText(EditProductActivity.this,"Product successfully edited and saved",Toast.LENGTH_LONG).show();
                 }   catch(Exception e){

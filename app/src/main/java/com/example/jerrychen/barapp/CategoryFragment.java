@@ -1,14 +1,12 @@
 package com.example.jerrychen.barapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -165,6 +163,12 @@ public class CategoryFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    /**
+     * This method updates and populates a listView with data from an arrayList
+     * @param listView
+     * @param PRODUCTS
+     */
     public void updateListView(ListView listView,ArrayList<Product> PRODUCTS){
         if(getContext()!=null) {
             if (loginActivity.isStaff == "true") {
