@@ -91,6 +91,14 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
             }
         });
+        View.OnClickListener yourClickListener=new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getContext(), ItemDetailsActivity.class);
+                myIntent.putExtra("Product",product);
+                getContext().startActivity(myIntent);
+            }
+        };
         buttonOrder.setOnClickListener(new View.OnClickListener() {
 
 
@@ -158,6 +166,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
         });
         // Return the completed view to render on screen
+        convertView.setOnClickListener(yourClickListener);
         return convertView;
     }
 

@@ -112,14 +112,7 @@ public class CategoryFragment extends Fragment {
             listViewProducts=(ListView)v.findViewById(R.id.listViewProducts);
             ProductAdapter productAdapter=new ProductAdapter(getContext(),PRODUCTS);
             listViewProducts.setAdapter(productAdapter);
-//            listViewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                    Intent intent=new Intent(getContext(),ItemDetailsActivity.class);
-//                    intent.putExtra("Product",PRODUCTS.get(i));
-//                    startActivity(intent);
-//                }
-//            });
+
             return v;
         }
 
