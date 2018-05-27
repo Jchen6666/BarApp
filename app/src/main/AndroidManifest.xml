@@ -16,13 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".AddProductActivity" />
         <activity android:name=".EditProductActivity" />
         <activity android:name=".ItemDetailsActivity" />
         <activity android:name=".StaffInterfaceActivity" />
         <activity android:name=".OrderDetailActivity" />
-        <activity android:name=".OrdersCustomerDetailActivity"></activity>
+        <activity android:name=".OrdersCustomerDetailActivity" />
+        <activity android:name=".EditAccountActivity"></activity>
     </application>
 
 </manifest>
