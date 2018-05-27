@@ -9,7 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
+/**
+ * A simple activity showing details of a product
+ * @see AppCompatActivity
+ */
 public class ItemDetailsActivity extends AppCompatActivity {
     private ImageView ivPicture;
     private TextView tvName, tvPrice, tvDescription, tvVolume, tvAvailability;

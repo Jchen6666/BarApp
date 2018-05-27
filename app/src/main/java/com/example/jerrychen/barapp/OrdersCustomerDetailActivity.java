@@ -14,7 +14,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
+/**
+ * A simple activity containing details of one order (from customer's perspective)
+ * @see AppCompatActivity
+ */
 public class OrdersCustomerDetailActivity extends AppCompatActivity {
    private ListView listView;
   private  FirebaseDatabase firebaseDatabase;

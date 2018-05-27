@@ -16,7 +16,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+/**
+ * A simple activity showing details of an order (from a staff perspective)
+ * @see AppCompatActivity
+ */
 public class OrderDetailActivity extends AppCompatActivity {
 
     private ListView listViewProducts;

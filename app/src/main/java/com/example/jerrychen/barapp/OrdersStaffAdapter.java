@@ -14,10 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
-/**
- * Created by Kangur on 09.05.2018.
- */
 
+/**
+ * A simple subclass of {@link ArrayAdapter<>} class that interprets the data passed for a listView
+ */
 public class OrdersStaffAdapter extends ArrayAdapter<Order> {
     public OrdersStaffAdapter(Context context, ArrayList<Order> orders) {
         super(context, 0, orders);

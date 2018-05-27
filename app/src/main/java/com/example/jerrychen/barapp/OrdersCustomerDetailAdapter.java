@@ -24,6 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A simple subclass of {@link ArrayAdapter<>} class that interprets the data passed for a listView
+ */
 public class OrdersCustomerDetailAdapter extends ArrayAdapter<String> {
    private Order myOrder;
    private FirebaseUser user;

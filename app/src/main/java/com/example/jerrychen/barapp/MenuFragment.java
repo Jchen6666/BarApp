@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Fragment containing listView for displaying item menu
  * Activities that contain this fragment must implement the
  * {@link MenuFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.

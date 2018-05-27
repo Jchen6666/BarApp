@@ -21,7 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Map;
-
+/**
+ * A simple activity containing form for logging in a register
+ * @see AppCompatActivity
+ */
 public class LoginActivity extends AppCompatActivity {
     AutoCompleteTextView editTextEmail,editTextPassword;
     private FirebaseAuth firebaseAuth;

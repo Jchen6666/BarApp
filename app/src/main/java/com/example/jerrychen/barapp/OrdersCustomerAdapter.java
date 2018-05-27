@@ -25,9 +25,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by jerrychen on 5/10/18.
+ * Adapter class extending {@link BaseAdapter}
+ * interprets the data passed for a listView
  */
-
 public class OrdersCustomerAdapter extends BaseAdapter {
     private Map<String, ArrayList<String>> mData = new HashMap<String, ArrayList<String>>();
     private String[] mKeys;
@@ -57,7 +57,7 @@ public class OrdersCustomerAdapter extends BaseAdapter {
         return arg0;
 
     }
-
+//Returns a View to populate the listView with
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
@@ -79,7 +79,6 @@ public class OrdersCustomerAdapter extends BaseAdapter {
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
         final  FirebaseUser user=firebaseAuth.getCurrentUser();
         final DatabaseReference dbRef=firebaseDatabase.getReference();
-       // textViewName.setText("qwd");
         totalPrice=myOrder.getPrice();
         dbRef.child("Products").child(value.get(0)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

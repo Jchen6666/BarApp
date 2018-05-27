@@ -7,9 +7,9 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * Created by jerrychen on 5/2/18.
+ * Class resembling Orders
+ * Implements {@link Serializable} to enable passing the object in a {@link android.os.Bundle} using {@link android.content.Intent}
  */
-
 public class Order implements Serializable{
     private Date date;
     private Map<String,ArrayList<String>> orderMap;
@@ -66,6 +66,11 @@ public class Order implements Serializable{
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    /**
+     * Method to generate a 10 digit ID
+     * @return ten digit ID of type String
+     */
     public String generateId(){
         char[] temp=new char[10];
         SecureRandom secureRandom=new SecureRandom();
@@ -74,6 +79,11 @@ public class Order implements Serializable{
         }
         return String.valueOf(temp);
     }
+
+    /**
+     * Method to generate a 4 digit Order code
+     * @return four digit order code of type String
+     */
     public String generateCode(){
         char[] temp=new char[4];
         SecureRandom secureRandom=new SecureRandom();

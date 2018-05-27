@@ -15,6 +15,10 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * A simple activity containing form for editing existing products
+ * @see AppCompatActivity
+ */
 public class EditProductActivity extends AppCompatActivity {
     private EditText etName,etPrice,etVolume,etDescription,etURL;
     private Spinner sCategory;
