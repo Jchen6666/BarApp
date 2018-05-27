@@ -59,7 +59,11 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         ImageButton ibInfo=(ImageButton) convertView.findViewById(R.id.imageButtonInfo);
 
 
-        // Populate the data into the template view using the data object
+        // Populate the data into the template view using the product object
+        if(!product.getAvailability()){
+            buttonOrder.setClickable(false);
+        }
+
         tvName.setText(product.getName());
         tvPrice.setText(product.getPrice()+"DKK");
         try {
