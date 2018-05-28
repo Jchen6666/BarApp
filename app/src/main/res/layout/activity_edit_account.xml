@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditAccountActivity">
+    tools:context=".EditAccountActivity"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/TextName"
@@ -14,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="41dp"
         android:layout_marginTop="35dp"
-        android:text="name"
+        android:text="Name"
         />
 
     <EditText
@@ -33,7 +34,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/TextName"
         android:layout_marginTop="123dp"
-        android:text="age" />
+        android:text="Age" />
 
     <EditText
         android:id="@+id/editAccountAge"
@@ -50,7 +51,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/TextName"
         android:layout_marginTop="201dp"
-        android:text="gender"
+        android:text="Gender"
         android:id="@+id/textAccountGender"/>
 
     <Spinner
@@ -58,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/textAccountGender"
-        android:layout_marginEnd="126dp"
+        android:layout_marginEnd="39dp"
         android:id="@+id/spinnerGender"/>
 
     <Button
@@ -68,5 +69,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="245dp"
+        android:textColor="@color/white"
+        android:background="@color/black"
         android:text="UPDATE" />
 </RelativeLayout>

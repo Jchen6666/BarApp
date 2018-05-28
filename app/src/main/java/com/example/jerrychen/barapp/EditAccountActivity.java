@@ -54,15 +54,18 @@ public class EditAccountActivity extends AppCompatActivity {
                   Long age= dataSnapshot.child("age").getValue(Long.class);
                   gender=dataSnapshot.child("gender").getValue(String.class);
                   editTextName.setText(name);
-                  editTextAge.setText(age.toString());
-
-                  for (int i=0;i<Gender.values().length;i++){
-                      if (gender.equals(Gender.values()[i].toString())){
-                          index=i;
-                          break;
-                      }
+                  if(age!=null) {
+                      editTextAge.setText(age.toString());
                   }
-                  spinnerGender.setSelection(index);
+                  if (gender!=null) {
+                      for (int i = 0; i < Gender.values().length; i++) {
+                          if (gender.equals(Gender.values()[i].toString())) {
+                              index = i;
+                              break;
+                          }
+                      }
+                      spinnerGender.setSelection(index);
+                  }
                }
 
             @Override

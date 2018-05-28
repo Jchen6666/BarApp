@@ -12,9 +12,10 @@
         android:layout_marginStart="10dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="16dp"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@mipmap/ic_launcher"/>
 
     <RelativeLayout
+        android:layout_marginStart="70dp"
         android:layout_width="298dp"
         android:layout_height="56dp"
         android:layout_alignParentEnd="true"
@@ -35,41 +36,52 @@
             android:layout_below="@id/textViewNumber"
             android:text="TextView"
             android:textSize="14dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/editTextAmount"
+            android:orientation="horizontal">>
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="100dp"
-                android:inputType="number"
-                android:textSize="14dp" />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="00"
+                    android:visibility="invisible"/>
+                <EditText
+                    android:maxLength="2"
+                    android:id="@+id/editTextAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="100dp"
+                    android:inputType="number"
+                    android:textSize="14dp" />
+            </FrameLayout>
 
             <ImageButton
                 android:layout_marginStart="20dp"
                 android:id="@+id/imageButtonInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginEnd="10dp"
-                app:srcCompat="@android:drawable/ic_menu_info_details" />
+                android:background="@color/white"
+                app:srcCompat="@android:drawable/ic_menu_info_details"/>
             <Button
                 android:id="@+id/buttonOrder"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:background="@color/black"
                 android:layout_marginEnd="10dp"
-                android:text="order" />
+                android:text="Add" />
 
         </LinearLayout>
-
     </RelativeLayout>
 </RelativeLayout>

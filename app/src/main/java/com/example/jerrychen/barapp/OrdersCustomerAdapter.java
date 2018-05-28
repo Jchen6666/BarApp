@@ -97,13 +97,16 @@ public class OrdersCustomerAdapter extends BaseAdapter {
                             editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                                 @Override
                                 public void onFocusChange(View view, boolean b) {
-                                    quantity=Integer.parseInt(editText.getText().toString());
-                                    totalPrice=totalPrice-singlePrice+Integer.parseInt(editText.getText().toString())*temp.getPrice();
-                                    myOrder.setPrice(totalPrice);
-                                    value.set(1,editText.getText().toString());
-                                    Log.d("TAG","Tagvalue: "+myOrder.getPrice());
-                                    singlePrice=quantity*temp.getPrice();
-                                    textViewPrice.setText(singlePrice+" krr");
+                                    if (editText.getText().toString().isEmpty()==false) {
+                                        quantity = Integer.parseInt(editText.getText().toString());
+                                        totalPrice=totalPrice-singlePrice+Integer.parseInt(editText.getText().toString())*temp.getPrice();
+                                        myOrder.setPrice(totalPrice);
+                                        value.set(1,editText.getText().toString());
+                                        Log.d("TAG","Tagvalue: "+myOrder.getPrice());
+                                        singlePrice=quantity*temp.getPrice();
+                                        textViewPrice.setText(singlePrice+" krr");
+                                    }
+
 
                                 }
                             });
