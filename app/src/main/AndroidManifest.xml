@@ -22,7 +22,7 @@
             />
         <activity android:name=".AddProductActivity"
             />
-        <activity android:name=".EditProductActivity" 
+        <activity android:name=".EditProductActivity"
             android:theme="@style/Theme_black_t"/>
 
         <activity android:name=".ItemDetailsActivity" />
