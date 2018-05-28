@@ -17,7 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Kangur on 10.05.2018.
+ * Adapter class extending {@link BaseAdapter}
+ * interprets the data passed for a listView
  */
 
 public class ProductOrderAdapter extends BaseAdapter {

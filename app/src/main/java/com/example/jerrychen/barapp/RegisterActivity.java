@@ -15,7 +15,10 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+/**
+ * A simple activity containing form for registering
+ * @see AppCompatActivity
+ */
 public class RegisterActivity extends AppCompatActivity {
     private EditText editTextEmail, editTextPassword, editTextName, editTextAge;
     String email,name,password;

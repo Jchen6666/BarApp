@@ -3,7 +3,8 @@ package com.example.jerrychen.barapp;
 import java.io.Serializable;
 
 /**
- * Created by jerrychen on 4/25/18.
+ * A simple, more specified User subclass
+ * @see User
  */
 
 public class Staff extends User implements Serializable {

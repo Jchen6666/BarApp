@@ -1,7 +1,7 @@
 package com.example.jerrychen.barapp;
 
 /**
- * Created by jerrychen on 5/7/18.
+ * Enum containing possible order statuses
  */
 
 public enum Status {

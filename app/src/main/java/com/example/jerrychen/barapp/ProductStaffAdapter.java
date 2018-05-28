@@ -20,7 +20,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Created by Kangur on 12.04.2018.
+ * A simple subclass of {@link ArrayAdapter<>} class that interprets the data passed for a listView
  */
 
 public class ProductStaffAdapter extends ArrayAdapter<Product> {

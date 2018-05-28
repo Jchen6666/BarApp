@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Map;
 /**
- * A simple activity containing form for logging in a register
+ * A simple activity containing form for logging in
  * @see AppCompatActivity
  */
 public class LoginActivity extends AppCompatActivity {

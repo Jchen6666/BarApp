@@ -4,9 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.widget.ArrayAdapter;
 
 /**
- * Created by Kangur on 11.04.2018.
+ * A simple subclass of {@link FragmentStatePagerAdapter} class that selects {@link Fragment} to populate the attached ViewPager
  */
 
 public class PagerAdapter extends FragmentStatePagerAdapter {

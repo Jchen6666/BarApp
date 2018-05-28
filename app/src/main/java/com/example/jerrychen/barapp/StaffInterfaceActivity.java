@@ -16,7 +16,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
-
+/**
+ * Main activity containing most UI elements and {@link Fragment}s
+ * @see AppCompatActivity
+ */
 public class StaffInterfaceActivity extends AppCompatActivity implements SettingsFragment.OnFragmentInteractionListener,OrdersFragment.OnFragmentInteractionListener,CategoryFragment.OnFragmentInteractionListener,MenuFragment.OnFragmentInteractionListener {
 
     private DrawerLayout mDrawerLayout;

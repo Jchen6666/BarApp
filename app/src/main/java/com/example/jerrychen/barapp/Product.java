@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.security.SecureRandom;
 
 /**
- * Created by Kangur on 09.04.2018.
+ * Class resembling Products
+ * Implements {@link Serializable} to enable passing the object in a {@link android.os.Bundle} using {@link android.content.Intent}
  */
-
 public class Product implements Serializable{
 
     private String pictureUrl;

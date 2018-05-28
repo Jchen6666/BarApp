@@ -1,7 +1,7 @@
 package com.example.jerrychen.barapp;
 
 /**
- * Created by Kangur on 09.04.2018.
+ * Enum containing possible product categories
  */
 
 public enum ProductCategory {

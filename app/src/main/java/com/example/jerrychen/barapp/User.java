@@ -3,7 +3,9 @@ package com.example.jerrychen.barapp;
 import java.io.Serializable;
 
 /**
- * Created by jerrychen on 4/11/18.
+ * Simple abstract class, superclass for all users
+ * @see Customer
+ * @see Staff
  */
 
 public abstract class User implements Serializable {

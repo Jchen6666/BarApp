@@ -28,9 +28,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Kangur on 12.04.2018.
+ * A simple subclass of {@link ArrayAdapter<>} class that interprets the data passed for a listView
  */
-
 public class ProductAdapter extends ArrayAdapter<Product> {
     private String quantity;
     private String uid;
