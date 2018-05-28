@@ -15,12 +15,12 @@ public class Customer extends User implements Serializable {
     public void setAge(int age) {
         this.age = age;
     }
-    private String gender;
+    private Gender gender;
     private int age;
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -29,18 +29,18 @@ public class Customer extends User implements Serializable {
 
     public Customer( String name, String email) {
         super(name, email,false);
-        gender="unknown";
+        gender=Gender.unknown;
 
     }
     public Customer( String name, String email, int age){
         super(name, email,false);
         this.age=age;
-        gender="unknown";
+        gender=Gender.unknown;
     }
     public Customer( String name, String email, int age,String gender){
         super(name, email,false);
         this.age=age;
-        this.gender=gender;
+        this.gender=Gender.unknown;
     }
 
 }

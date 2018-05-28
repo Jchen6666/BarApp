@@ -8,21 +8,31 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".LoginActivity">
+        android:theme="@style/Theme_white_t">
+        <activity android:name=".LoginActivity"
+            android:theme="@style/Theme_black_t">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".AddProductActivity" />
-        <activity android:name=".EditProductActivity" />
+        <activity android:name=".RegisterActivity"
+            android:theme="@style/Theme_black_t"
+            />
+        <activity android:name=".AddProductActivity"
+            />
+        <activity android:name=".EditProductActivity"
+            android:theme="@style/Theme_black_t"/>
+
         <activity android:name=".ItemDetailsActivity" />
         <activity android:name=".StaffInterfaceActivity" />
         <activity android:name=".OrderDetailActivity" />
-        <activity android:name=".OrdersCustomerDetailActivity"></activity>
+        <activity android:name=".OrdersCustomerDetailActivity" />
+        <activity android:name=".EditAccountActivity"
+            android:theme="@style/Theme_black_t">
+
+        </activity>
     </application>
 
 </manifest>

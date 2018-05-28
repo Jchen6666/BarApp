@@ -1,12 +1,19 @@
 package com.example.jerrychen.barapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 /**
@@ -58,13 +65,41 @@ public class SettingsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final FirebaseAuth firebaseAuth =FirebaseAuth.getInstance();
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+
+        View view=inflater.inflate(R.layout.fragment_settings, container, false);
+        Button buttonSignOut=view.findViewById(R.id.signOut);
+        Button buttonProfile=view.findViewById(R.id.Profile);
+        // account setting button
+        buttonProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), EditAccountActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        // sign out button
+        buttonSignOut.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 firebaseAuth.signOut();
+                 FirebaseUser user=firebaseAuth.getCurrentUser();
+                 if (user==null) {
+                     Toast.makeText(getContext(),"You have signed out",Toast.LENGTH_SHORT);
+                     Intent intent = new Intent(getContext(), LoginActivity.class);
+                     startActivity(intent);
+                 }
+             }
+         });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
