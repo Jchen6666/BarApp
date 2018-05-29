@@ -61,7 +61,6 @@ public class OrdersCustomerDetailAdapter extends ArrayAdapter<String> {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 myOrder=dataSnapshot.child("orders").child(orderId).getValue(Order.class);
-                Toast.makeText(getContext(),"orderMap "+myOrder.getOrderMap(),Toast.LENGTH_LONG).show();
                 if (dataSnapshot.child("users").child(user.getUid()).child("historyOrder").exists()) {
                     HISTORY_ORDERSID = new ArrayList<>();
                     Iterable<DataSnapshot> children = dataSnapshot.child("users").child(user.getUid()).child("historyOrder").getChildren();
