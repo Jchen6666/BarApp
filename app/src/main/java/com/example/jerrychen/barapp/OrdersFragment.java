@@ -120,7 +120,6 @@ public class OrdersFragment extends Fragment {
                         }
                     }
                     else{
-                       // Toast.makeText(getContext(),"no current order",Toast.LENGTH_LONG);
                         orderButton.setEnabled(false);
 
                     }

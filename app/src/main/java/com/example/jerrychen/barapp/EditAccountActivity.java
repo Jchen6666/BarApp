@@ -34,7 +34,7 @@ public class EditAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
-        //initialize view objects
+        //Initialize view objects
         final Button update=findViewById(R.id.updateAccount);
         final EditText editTextName=findViewById(R.id.editAccountName);
         final EditText editTextAge=findViewById(R.id.editAccountAge);
@@ -44,11 +44,11 @@ public class EditAccountActivity extends AppCompatActivity {
         dbRef=firebaseDatabase.getReference();
         user=firebaseAuth.getCurrentUser();
         spinnerGender.setAdapter(new ArrayAdapter<Gender>(this,android.R.layout.simple_list_item_1,Gender.values()));
-        //retrieve user profile from firebase database
+        //Retrieve user profile from firebase database
         dbRef.child("users").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                 //get name and age
+                 //Get name and age
 
                   String name=dataSnapshot.child("name").getValue(String.class);
                   Long age= dataSnapshot.child("age").getValue(Long.class);
