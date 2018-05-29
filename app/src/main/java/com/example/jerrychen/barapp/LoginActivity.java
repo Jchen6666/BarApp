@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword=(AutoCompleteTextView)findViewById(R.id.userPassword);
         firebaseDatabase=FirebaseDatabase.getInstance();
         if (user!=null){
-            Intent intent = new Intent(LoginActivity.this, StaffInterfaceActivity.class);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             dbRef.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                            if (task.isSuccessful()) {
                                FirebaseUser user = firebaseAuth.getCurrentUser();
                                dbRef.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
-                                   Intent intent = new Intent(LoginActivity.this, StaffInterfaceActivity.class);
+                                   Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                    @Override
                                    public void onDataChange(DataSnapshot dataSnapshot) {
                                        Map<String, String> map = (Map<String, String>) dataSnapshot.getValue();

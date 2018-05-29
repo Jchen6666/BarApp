@@ -26,7 +26,7 @@
             android:theme="@style/Theme_black_t"/>
 
         <activity android:name=".ItemDetailsActivity" />
-        <activity android:name=".StaffInterfaceActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".OrderDetailActivity" />
         <activity android:name=".OrdersCustomerDetailActivity" />
         <activity android:name=".EditAccountActivity"

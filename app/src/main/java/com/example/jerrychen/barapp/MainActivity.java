@@ -20,7 +20,7 @@ import android.widget.Toast;
  * Main activity containing most UI elements and {@link Fragment}s
  * @see AppCompatActivity
  */
-public class StaffInterfaceActivity extends AppCompatActivity implements SettingsFragment.OnFragmentInteractionListener,OrdersFragment.OnFragmentInteractionListener,CategoryFragment.OnFragmentInteractionListener,MenuFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements SettingsFragment.OnFragmentInteractionListener,OrdersFragment.OnFragmentInteractionListener,CategoryFragment.OnFragmentInteractionListener,MenuFragment.OnFragmentInteractionListener {
 
     private DrawerLayout mDrawerLayout;
     @Override
@@ -68,24 +68,24 @@ public class StaffInterfaceActivity extends AppCompatActivity implements Setting
 
 
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
-                        // close drawer when item is tapped
-                        mDrawerLayout.closeDrawers();
-                        Intent myIntent = new Intent(StaffInterfaceActivity.this, AddProductActivity.class);
-                        StaffInterfaceActivity.this.startActivity(myIntent);
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
-
-                        return true;
-                    }
-                });
-
+//        NavigationView navigationView = findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(
+//                new NavigationView.OnNavigationItemSelectedListener() {
+//                    @Override
+//                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+//                        // set item as selected to persist highlight
+//                        menuItem.setChecked(true);
+//                        // close drawer when item is tapped
+//                        mDrawerLayout.closeDrawers();
+//                        Intent myIntent = new Intent(MainActivity.this, AddProductActivity.class);
+//                        MainActivity.this.startActivity(myIntent);
+//                        // Add code here to update the UI based on the item selected
+//                        // For example, swap UI fragments here
+//
+//                        return true;
+//                    }
+//                });
+//
 
 
     }
@@ -101,15 +101,15 @@ public class StaffInterfaceActivity extends AppCompatActivity implements Setting
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                mDrawerLayout.openDrawer(GravityCompat.START);
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
