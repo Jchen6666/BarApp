@@ -32,6 +32,7 @@ public class OrdersCustomerDetailActivity extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         DatabaseReference dbRef=firebaseDatabase.getReference();
         FirebaseUser user=firebaseAuth.getCurrentUser();
+        //retrive current orders id
         dbRef.child("users").child(user.getUid()).child("currentOrder").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -52,6 +53,7 @@ public class OrdersCustomerDetailActivity extends AppCompatActivity {
 
             }
         });
+        //setting listview
         if (listView!=null&&CURRENT_ORDERSID!=null) {
 
             OrdersCustomerDetailAdapter ordersCustomerDetailAdapter = new OrdersCustomerDetailAdapter(OrdersCustomerDetailActivity.this, CURRENT_ORDERSID);

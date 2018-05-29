@@ -10,7 +10,7 @@ public class ConnectionDetector {
     public ConnectionDetector(Context context) {
         this.context = context;
     }
-
+    //check internet connection and return the result
     public boolean isConnected() {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
